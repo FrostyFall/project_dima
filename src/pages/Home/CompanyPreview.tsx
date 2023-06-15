@@ -1,48 +1,28 @@
 import styled from "styled-components";
+import { ICompany } from "../../interfaces/company.interface";
+import { useNavigate } from "react-router-dom";
+import { Star } from "../../static";
 
-export default function CompanyPreview() {
-  const company = {
-    id: 3,
-    name: "КокПирог",
-    description: "Доставка 5 руб. Бесплатно от 40 руб.",
-    deliveryInfo: {
-      minTime: 50,
-      maxTime: 70,
-      minPrice: 20,
-    },
-    reviewsInfo: {
-      score: 4.5,
-      count: 31,
-    },
-    productTypeRange: [
-      {
-        id: 2,
-        name: "шаурма",
-      },
-      {
-        id: 3,
-        name: "суши",
-      },
-      {
-        id: 6,
-        name: "горячие блюда",
-      },
-    ],
-    location: "минск",
-    paymentMethods: ["наличными", "картой курьеру", "картой онлайн"],
-  };
+interface Props {
+  company: ICompany;
+}
+
+export default function CompanyPreview({ company }: Props) {
+  const navigate = useNavigate();
 
   return (
-    <Figure>
+    <Figure onClick={() => navigate(`/companies/${company.id}`)}>
       <img
         src='https://s5o.ru/storage/simple/cyber/edt/bb/f9/38/f5/cyberef95b3ecf51.jpg'
-        alt=''
+        alt='Company'
       />
       <Figcaption>
         <h4 className='company__name'>{company.name}</h4>
         <InfoWrapper>
           <ReviewsWrapper>
-            <span>star icon</span>{" "}
+            <SvgWrapper>
+              <Star />{" "}
+            </SvgWrapper>
             <span className='company__reviews-score'>
               {company.reviewsInfo.score}
             </span>
@@ -51,26 +31,38 @@ export default function CompanyPreview() {
             </span>
           </ReviewsWrapper>
           <span className='company__products-range'>
-            Пиццы, салаты, десерты
+            {company.productTypeRange
+              .map((productType) => productType.name)
+              .join(", ")}
           </span>
         </InfoWrapper>
         <span className='company__delivery-info'>
-          Заказ от {company.deliveryInfo.minPrice} руб. Доставка бесплатная
+          Заказ от {company.deliveryInfo.minPrice} руб. Доставка{" "}
+          {company.deliveryInfo.deliveryPrice
+            ? `${company.deliveryInfo.deliveryPrice} руб.`
+            : "бесплатная"}
         </span>
+        <div className='company__delivery-time'>
+          {company.deliveryInfo.minTime}-{company.deliveryInfo.maxTime} мин
+        </div>
       </Figcaption>
     </Figure>
   );
 }
 
 const Figure = styled.figure`
-  width: 30%;
+  width: 31.5%;
   cursor: pointer;
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  transition: transform 0.175s;
 
   img {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
   }
 
   .company__name {
@@ -80,6 +72,10 @@ const Figure = styled.figure`
 
   .company__delivery-info {
     font-size: 0.8rem;
+  }
+
+  &:hover {
+    transform: translateY(-2%);
   }
 `;
 
@@ -91,6 +87,19 @@ const Figcaption = styled.figcaption`
   padding: 0.75em 1em;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  min-height: 100px;
+  position: relative;
+
+  .company__delivery-time {
+    position: absolute;
+    top: -2.5em;
+    right: 1em;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 0.925rem;
+    padding: 0.2em 0.6em;
+    border-radius: 4px;
+  }
 `;
 
 const InfoWrapper = styled.div`
@@ -100,6 +109,10 @@ const InfoWrapper = styled.div`
 
   .company__products-range {
     color: var(--text-secondary);
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 
   .company__reviews-count {
@@ -117,4 +130,12 @@ const ReviewsWrapper = styled.div`
     font-weight: 700;
     margin-right: 0.25rem;
   }
+`;
+
+const SvgWrapper = styled.div`
+  position: relative;
+  top: -1px;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-right: 0.3rem;
 `;

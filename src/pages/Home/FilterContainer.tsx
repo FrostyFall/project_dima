@@ -2,6 +2,7 @@ import styled from "styled-components";
 import "../../index.css";
 
 import Filters from "./Filters";
+import { Filters as FiltersIcon } from "../../static";
 
 export default function FilterContainer() {
   return (
@@ -9,7 +10,10 @@ export default function FilterContainer() {
       <Wrapper>
         <H2>Доставка</H2>
         <Button>
-          <span>Icon</span> Фильтры
+          <SvgWrapper>
+            <FiltersIcon />
+          </SvgWrapper>{" "}
+          Фильтры
         </Button>
       </Wrapper>
       <Filters />
@@ -35,6 +39,8 @@ const H2 = styled.h2`
 `;
 
 const Button = styled.button`
+  display: flex;
+  align-items: center;
   background: #fff;
   border: none;
   font-size: 1rem;
@@ -46,5 +52,15 @@ const Button = styled.button`
   &:hover {
     background: var(--primary);
     color: #fff;
+
+    svg path {
+      fill: #fff;
+    }
   }
+`;
+
+const SvgWrapper = styled.div`
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-right: 0.3rem;
 `;

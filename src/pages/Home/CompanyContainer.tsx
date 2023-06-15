@@ -11,8 +11,9 @@ export default function CompanyContainer() {
         minTime: 50,
         maxTime: 90,
         minPrice: 14,
+        deliveryPrice: null,
       },
-      reviews: {
+      reviewsInfo: {
         score: 4.3,
         count: 114,
       },
@@ -41,6 +42,7 @@ export default function CompanyContainer() {
         minTime: 40,
         maxTime: 60,
         minPrice: 18,
+        deliveryPrice: 7,
       },
       reviewsInfo: {
         score: 4.8,
@@ -71,6 +73,69 @@ export default function CompanyContainer() {
         minTime: 50,
         maxTime: 70,
         minPrice: 20,
+        deliveryPrice: 5,
+      },
+      reviewsInfo: {
+        score: 4.5,
+        count: 31,
+      },
+      productTypeRange: [
+        {
+          id: 2,
+          name: "шаурма",
+        },
+        {
+          id: 3,
+          name: "суши",
+        },
+        {
+          id: 6,
+          name: "горячие блюда",
+        },
+      ],
+      location: "минск",
+      paymentMethods: ["наличными", "картой курьеру", "картой онлайн"],
+    },
+    {
+      id: 3,
+      name: "ОкПирог",
+      description: "Доставка 5 руб. Бесплатно от 40 руб.",
+      deliveryInfo: {
+        minTime: 50,
+        maxTime: 70,
+        minPrice: 20,
+        deliveryPrice: 5,
+      },
+      reviewsInfo: {
+        score: 4.5,
+        count: 31,
+      },
+      productTypeRange: [
+        {
+          id: 2,
+          name: "шаурма",
+        },
+        {
+          id: 3,
+          name: "суши",
+        },
+        {
+          id: 6,
+          name: "горячие блюда",
+        },
+      ],
+      location: "минск",
+      paymentMethods: ["наличными", "картой курьеру", "картой онлайн"],
+    },
+    {
+      id: 3,
+      name: "ОкПирог",
+      description: "Доставка 5 руб. Бесплатно от 40 руб.",
+      deliveryInfo: {
+        minTime: 50,
+        maxTime: 70,
+        minPrice: 20,
+        deliveryPrice: 5,
       },
       reviewsInfo: {
         score: 4.5,
@@ -97,7 +162,9 @@ export default function CompanyContainer() {
 
   return (
     <Wrapper>
-      <CompanyPreview />
+      {companies.map((company) => (
+        <CompanyPreview company={company} />
+      ))}
     </Wrapper>
   );
 }
@@ -105,4 +172,7 @@ export default function CompanyContainer() {
 const Wrapper = styled.div`
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
+  column-gap: 2.75%;
+  row-gap: 2rem;
 `;
