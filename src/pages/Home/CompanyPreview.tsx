@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function CompanyPreview() {
   const company = {
     id: 3,
-    name: "ОкПирог",
+    name: "КокПирог",
     description: "Доставка 5 руб. Бесплатно от 40 руб.",
     deliveryInfo: {
       minTime: 50,
