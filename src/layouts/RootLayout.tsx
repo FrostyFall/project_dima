@@ -5,10 +5,10 @@ import Footer from "../components/Common/Footer";
 
 export default function RootLayout() {
   return (
-    <>
+    <div className='main-container'>
       <Header />
       <Outlet />
       <Footer />
-    </>
+    </div>
   );
 }
