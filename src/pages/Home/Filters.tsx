@@ -38,9 +38,9 @@ export default function Filters() {
 
   return (
     <Wrapper>
-      <Button className='active'>Все доставки</Button>
+      <Button className="active">Все доставки</Button>
       {filters.map((filter) => (
-        <Button>{filter.name}</Button>
+        <Button key={filter.id}>{filter.name}</Button>
       ))}
     </Wrapper>
   );

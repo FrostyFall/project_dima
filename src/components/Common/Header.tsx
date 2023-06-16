@@ -1,7 +1,12 @@
+import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 // import logo from "../../../public/imgs/logo.svg";
 
-export default function Header() {
+type HeaderProps = {
+  setActive: Dispatch<SetStateAction<boolean>>;
+};
+
+export default function Header({ setActive }: HeaderProps) {
   return (
     <Wrapper>
       <div className="container">
@@ -16,7 +21,7 @@ export default function Header() {
             <img src="../../../public/imgs/search.png" />
           </HeaderSearchButton>
         </div>
-        <HeaderLogin>Войти</HeaderLogin>
+        <HeaderLogin onClick={() => setActive(true)}>Войти</HeaderLogin>
       </div>
       <hr />
     </Wrapper>
@@ -80,4 +85,8 @@ const HeaderLogin = styled.button`
   border: none;
   margin-right: 15px;
   font-size: 17px;
+
+  &:hover {
+    font-weight: bold;
+  }
 `;

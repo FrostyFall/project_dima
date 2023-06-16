@@ -97,8 +97,8 @@ export default function CompanyContainer() {
       paymentMethods: ["наличными", "картой курьеру", "картой онлайн"],
     },
     {
-      id: 3,
-      name: "ОкПирог",
+      id: 4,
+      name: "Чебурек.Врот",
       description: "Доставка 5 руб. Бесплатно от 40 руб.",
       deliveryInfo: {
         minTime: 50,
@@ -107,29 +107,21 @@ export default function CompanyContainer() {
         deliveryPrice: 5,
       },
       reviewsInfo: {
-        score: 4.5,
+        score: 3.7,
         count: 31,
       },
       productTypeRange: [
         {
-          id: 2,
-          name: "шаурма",
-        },
-        {
-          id: 3,
-          name: "суши",
-        },
-        {
-          id: 6,
-          name: "горячие блюда",
+          id: 1,
+          name: "чебурек",
         },
       ],
       location: "минск",
       paymentMethods: ["наличными", "картой курьеру", "картой онлайн"],
     },
     {
-      id: 3,
-      name: "ОкПирог",
+      id: 5,
+      name: "KoкПирог",
       description: "Доставка 5 руб. Бесплатно от 40 руб.",
       deliveryInfo: {
         minTime: 50,
@@ -163,7 +155,7 @@ export default function CompanyContainer() {
   return (
     <Wrapper>
       {companies.map((company) => (
-        <CompanyPreview company={company} />
+        <CompanyPreview key={company.id} company={company} />
       ))}
     </Wrapper>
   );
