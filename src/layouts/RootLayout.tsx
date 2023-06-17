@@ -5,6 +5,7 @@ import Footer from "../components/Common/Footer";
 import LoginModal from "../components/Auth/LoginModal";
 import { useState } from "react";
 import RegisterModal from "../components/Auth/RegisterModal";
+import styled from "styled-components";
 
 export default function RootLayout() {
   const [loginModalActive, setLoginModalActive] = useState(false);
@@ -13,7 +14,9 @@ export default function RootLayout() {
   return (
     <div className="main-container">
       <Header setActive={setLoginModalActive} />
-      <Outlet />
+      <Wrapper>
+        <Outlet />
+      </Wrapper>
       <Footer />
       <LoginModal
         isActive={loginModalActive}
@@ -28,3 +31,9 @@ export default function RootLayout() {
     </div>
   );
 }
+
+const Wrapper = styled.div`
+  margin: 0 auto;
+  max-width: 1200px;
+  height: 100%;
+`;

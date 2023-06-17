@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
-// import logo from "../../../public/imgs/logo.svg";
+import { Logo as LogoIcon } from "../../static";
+import { Search as SearchIcon } from "../../static";
 
 type HeaderProps = {
   setActive: Dispatch<SetStateAction<boolean>>;
@@ -14,11 +15,13 @@ export default function Header({ setActive }: HeaderProps) {
         <HeaderPhone>+375 (29) 123-45-67</HeaderPhone>
       </div>
       <div className="container ">
-        <Logo src="../../../public/imgs/logo.png" />
+        <LogoWrapper>
+          <LogoIcon />
+        </LogoWrapper>
         <div className="container_search">
           <HeaderSearchField placeholder="Поиск блюд и ресторанов" />
           <HeaderSearchButton>
-            <img src="../../../public/imgs/search.png" />
+            <SearchIcon />
           </HeaderSearchButton>
         </div>
         <HeaderLogin onClick={() => setActive(true)}>Войти</HeaderLogin>
@@ -31,6 +34,8 @@ export default function Header({ setActive }: HeaderProps) {
 const Wrapper = styled.header`
   color: #000;
   height: 159px;
+  max-width: 1200px;
+  width: 100%;
   margin-bottom: 10px;
 
   .container {
@@ -56,7 +61,7 @@ const HeaderPhone = styled.div`
   font-size: 18px;
   font-weight: bold;
 `;
-const Logo = styled.img`
+const LogoWrapper = styled.div`
   width: 148px;
   height: 87px;
 `;
@@ -68,6 +73,9 @@ const HeaderSearchField = styled.input`
   background: #f3f3f3;
   padding: 7px 0 8px 13px;
   margin-left: 80px;
+  &:focus {
+    outline: none;
+  }
 `;
 const HeaderSearchButton = styled.button`
   width: 36px;
@@ -78,13 +86,18 @@ const HeaderSearchButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  //! Tут должна быть пикча типа ЛУУППАА (search). Oна скачана и в папке public с пикчами
+  padding: 7px;
+  cursor: pointer;
+  &:hover {
+    padding: 6px;
+  }
 `;
 const HeaderLogin = styled.button`
   background: none;
   border: none;
   margin-right: 15px;
   font-size: 17px;
+  cursor: pointer;
 
   &:hover {
     font-weight: bold;
