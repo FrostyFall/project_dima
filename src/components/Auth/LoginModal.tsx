@@ -5,6 +5,7 @@ import styled from "styled-components";
 type LoginModalProps = {
   isActive: boolean;
   setActive: Dispatch<SetStateAction<boolean>>;
+  setRegisterModalActive: Dispatch<SetStateAction<boolean>>;
 };
 
 interface IFormInput {
@@ -12,7 +13,11 @@ interface IFormInput {
   password: string;
 }
 
-export default function LoginModal({ isActive, setActive }: LoginModalProps) {
+export default function LoginModal({
+  isActive,
+  setActive,
+  setRegisterModalActive,
+}: LoginModalProps) {
   const {
     register,
     formState: { errors },
@@ -73,7 +78,16 @@ export default function LoginModal({ isActive, setActive }: LoginModalProps) {
         <Submit type="submit" placeholder="Войти" />
         <div className="container center">
           <button className="container__btn">Восстановить пароль</button>
-          <button className="container__btn">Регистрация</button>
+          <button
+            className="container__btn"
+            onClick={() => {
+              reset({ email: "", password: "" });
+              setActive(false);
+              setRegisterModalActive(true);
+            }}
+          >
+            Регистрация
+          </button>
         </div>
       </ModalForm>
     </Modal>
