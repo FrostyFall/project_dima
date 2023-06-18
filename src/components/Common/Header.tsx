@@ -10,16 +10,16 @@ type HeaderProps = {
 export default function Header({ setActive }: HeaderProps) {
   return (
     <Wrapper>
-      <div className="container">
+      <div className='container'>
         <HeaderLocation>Витебск</HeaderLocation>
         <HeaderPhone>+375 (29) 123-45-67</HeaderPhone>
       </div>
-      <div className="container ">
+      <div className='container '>
         <LogoWrapper>
           <LogoIcon />
         </LogoWrapper>
-        <div className="container_search">
-          <HeaderSearchField placeholder="Поиск блюд и ресторанов" />
+        <div className='container_search'>
+          <HeaderSearchField placeholder='Поиск блюд и ресторанов' />
           <HeaderSearchButton>
             <SearchIcon />
           </HeaderSearchButton>

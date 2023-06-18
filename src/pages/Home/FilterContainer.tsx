@@ -3,6 +3,7 @@ import "../../index.css";
 
 import Filters from "./Filters";
 import { Filters as FiltersIcon } from "../../static";
+import FiltersModal from "./FiltersModal";
 
 export default function FilterContainer() {
   return (
@@ -17,6 +18,7 @@ export default function FilterContainer() {
         </Button>
       </Wrapper>
       <Filters />
+      {/* <FiltersModal /> */}
     </MainWrapper>
   );
 }
@@ -24,20 +26,17 @@ export default function FilterContainer() {
 const MainWrapper = styled.div`
   margin-bottom: 3rem;
 `;
-
 const Wrapper = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
 `;
-
 const H2 = styled.h2`
   color: black;
   font-size: 2.25rem;
   font-weight: 700;
 `;
-
 const Button = styled.button`
   display: flex;
   align-items: center;
@@ -58,7 +57,6 @@ const Button = styled.button`
     }
   }
 `;
-
 const SvgWrapper = styled.div`
   width: 0.9rem;
   height: 0.9rem;
