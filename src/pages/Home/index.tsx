@@ -12,5 +12,5 @@ export default function Home() {
 }
 
 const Wrapper = styled.div`
-  padding: 3rem 0;
+  padding: 2.5rem 0;
 `;

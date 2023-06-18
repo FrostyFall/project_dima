@@ -2,20 +2,23 @@ import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { Logo as LogoIcon } from "../../static";
 import { Search as SearchIcon } from "../../static";
+import { useNavigate } from "react-router-dom";
 
 type HeaderProps = {
   setActive: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function Header({ setActive }: HeaderProps) {
+  const navigate = useNavigate();
+
   return (
     <Wrapper className='main-container'>
       <div className='container'>
         <HeaderLocation>Витебск</HeaderLocation>
         <HeaderPhone>+375 (29) 123-45-67</HeaderPhone>
       </div>
-      <div className='container '>
-        <LogoWrapper>
+      <div className='container'>
+        <LogoWrapper onClick={() => navigate("/")}>
           <LogoIcon />
         </LogoWrapper>
         <div className='container_search'>
@@ -34,8 +37,6 @@ export default function Header({ setActive }: HeaderProps) {
 const Wrapper = styled.header`
   color: #000;
   height: 159px;
-  max-width: 1200px;
-  width: 100%;
   margin-bottom: 10px;
 
   .container {
@@ -64,6 +65,7 @@ const HeaderPhone = styled.div`
 const LogoWrapper = styled.div`
   width: 148px;
   height: 87px;
+  cursor: pointer;
 `;
 const HeaderSearchField = styled.input`
   width: 739px;

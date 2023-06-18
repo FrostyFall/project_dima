@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { legacy_createStore as createStore } from "redux";
 import { Provider } from "react-redux";
 
 import Header from "../components/Common/Header";
@@ -9,7 +8,6 @@ import LoginModal from "../components/Auth/LoginModal";
 import RegisterModal from "../components/Auth/RegisterModal";
 
 import store from "../store";
-import styled from "styled-components";
 
 export default function RootLayout() {
   const [loginModalActive, setLoginModalActive] = useState(false);

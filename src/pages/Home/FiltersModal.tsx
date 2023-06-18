@@ -169,8 +169,8 @@ export default function FiltersModal() {
   };
 
   return (
-    <Wrapper>
-      <Container>
+    <Wrapper onClick={() => dispatch(toggleFiltersModal(false))}>
+      <Container onClick={(e) => e.stopPropagation()}>
         <ModalHeader>
           <CloseModalButton onClick={() => dispatch(toggleFiltersModal(false))}>
             <SvgWrapper>

@@ -20,7 +20,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout />}>
       <Route index element={<Home />} />
-      <Route path='companies' element={<Company />} />
+      <Route path='companies/:id' element={<Company />} />
       {/* <Route element={<ProtectedRoute role='user' redirectPath='auth' />}>
         <Route index element={<Navigate to='home' />} />
         <Route path='home' element={<Home />} />
