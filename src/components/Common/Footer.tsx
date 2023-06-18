@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function Footer() {
   return (
     <Wrapper>
-      <Container>
+      <Container className='main-container'>
         <FooterContent>
           Доставка пиццы, шаурмы, суши, бургеров, супов, горячих блюд, шашлыка
         </FooterContent>
@@ -35,7 +35,6 @@ const FooterCities = styled.p`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  max-width: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;

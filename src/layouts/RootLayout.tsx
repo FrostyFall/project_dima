@@ -12,11 +12,11 @@ export default function RootLayout() {
   const [registerModalActive, setRegisterModalActive] = useState(false);
 
   return (
-    <div className="main-container">
+    <>
       <Header setActive={setLoginModalActive} />
-      <Wrapper>
+      <div className='main-container'>
         <Outlet />
-      </Wrapper>
+      </div>
       <Footer />
       <LoginModal
         isActive={loginModalActive}
@@ -28,12 +28,6 @@ export default function RootLayout() {
         setActive={setRegisterModalActive}
         setLoginModalActive={setLoginModalActive}
       />
-    </div>
+    </>
   );
 }
-
-const Wrapper = styled.div`
-  margin: 0 auto;
-  max-width: 1200px;
-  height: 100%;
-`;

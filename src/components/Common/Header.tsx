@@ -9,7 +9,7 @@ type HeaderProps = {
 
 export default function Header({ setActive }: HeaderProps) {
   return (
-    <Wrapper>
+    <Wrapper className='main-container'>
       <div className='container'>
         <HeaderLocation>Витебск</HeaderLocation>
         <HeaderPhone>+375 (29) 123-45-67</HeaderPhone>
