@@ -1,8 +1,11 @@
 import { FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+
 import { Close as CloseIcon } from "../../static";
 import FiltersRadio from "./FiltersRadio";
 import FiltersCheckbox from "./FiltersCheckbox";
+import { toggleFiltersModal } from "src/store/actions";
 
 const productTypes = [
   {
@@ -94,9 +97,9 @@ interface IFormState {
   stateChanged: boolean;
 }
 
-// FIX: state with payment methods
 export default function FiltersModal() {
   const [formState, setFormState] = useState<IFormState>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const newState: IState = {
@@ -169,7 +172,7 @@ export default function FiltersModal() {
     <Wrapper>
       <Container>
         <ModalHeader>
-          <CloseModalButton>
+          <CloseModalButton onClick={() => dispatch(toggleFiltersModal(false))}>
             <SvgWrapper>
               <CloseIcon />
             </SvgWrapper>

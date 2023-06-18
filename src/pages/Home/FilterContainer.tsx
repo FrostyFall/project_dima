@@ -1,16 +1,24 @@
-import styled from "styled-components";
 import "../../index.css";
+import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
 
-import Filters from "./Filters";
 import { Filters as FiltersIcon } from "../../static";
+import Filters from "./Filters";
 import FiltersModal from "./FiltersModal";
+import { IStore } from "src/store/interfaces/store.interface";
+import { toggleFiltersModal } from "src/store/actions";
 
 export default function FilterContainer() {
+  const isModalOpen = useSelector(
+    (state: IStore) => state.modals.isFiltersModalOpen
+  );
+  const dispatch = useDispatch();
+
   return (
     <MainWrapper>
       <Wrapper>
         <H2>Доставка</H2>
-        <Button>
+        <Button onClick={() => dispatch(toggleFiltersModal(!isModalOpen))}>
           <SvgWrapper>
             <FiltersIcon />
           </SvgWrapper>{" "}
@@ -18,7 +26,7 @@ export default function FilterContainer() {
         </Button>
       </Wrapper>
       <Filters />
-      {/* <FiltersModal /> */}
+      {isModalOpen && <FiltersModal />}
     </MainWrapper>
   );
 }
