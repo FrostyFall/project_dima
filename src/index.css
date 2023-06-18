@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
+
 *,
 *::after,
 *::before {
@@ -15,7 +17,7 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   line-height: 1.4;
 }
 
@@ -41,7 +43,7 @@ select {
 }
 
 .main-container {
-  width: 100%;
+  width: 95%;
   max-width: 1200px;
   margin: 0 auto;
 }
