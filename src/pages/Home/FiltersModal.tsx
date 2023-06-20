@@ -265,7 +265,6 @@ const ModalHeader = styled.footer`
   padding: 1.25em 1.25em 0;
 `;
 const Form = styled.form`
-  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
@@ -273,7 +272,6 @@ const Form = styled.form`
 `;
 const Fieldset = styled.fieldset`
   border: none;
-  overflow-y: scroll;
 
   .fs__title {
     font-size: 1.25em;
@@ -292,7 +290,6 @@ const Fieldset = styled.fieldset`
     flex-direction: column;
     align-items: flex-start;
     row-gap: 0.5rem;
-    overflow-y: scroll;
   }
 `;
 const SvgWrapper = styled.div`
@@ -321,7 +318,6 @@ const FooterButton = styled.button`
   cursor: pointer;
   font-size: 1.05rem;
   min-height: 45px;
-  // padding: 0.6em;
   color: #fff;
   border-radius: 4px;
 `;
