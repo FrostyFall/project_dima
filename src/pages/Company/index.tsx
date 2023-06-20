@@ -8,19 +8,20 @@ import { ICompany } from "src/interfaces/company.interface";
 import { resetSelectedCompany, setSelectedCompany } from "src/store/actions";
 import { IStore } from "src/store/interfaces/store.interface";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Company() {
   const selectedCompany = useSelector(
     (state: IStore) => state.companies.selectedCompany
   );
   const dispatch = useDispatch();
+  const [isModalActive, setIsModalActive] = useState<boolean>(false);
 
   return (
     <Wrapper>
-      <div className='company-content'>
-        <div className='company-info'>
-          <div className='company-info__header'>
+      <div className="company-content">
+        <div className="company-info">
+          <div className="company-info__header">
             <H2>{selectedCompany?.name}</H2>
             <DeliveryInfoWrapper>
               <DeliveryInfo>
@@ -34,7 +35,7 @@ export default function Company() {
               </DeliveryInfo>
             </DeliveryInfoWrapper>
           </div>
-          <div className='company-info__footer'>
+          <div className="company-info__footer">
             <TypesNav>
               <TypesList>
                 {selectedCompany?.productTypeRange.map((type) => (
@@ -47,14 +48,22 @@ export default function Company() {
           </div>
         </div>
 
-        <div className='company-products'>
+        <div className="company-products">
           <ProductTypesContainer />
         </div>
       </div>
       <CartWrapper>
-        <Cart />
+        <Cart
+          isModalActive={isModalActive}
+          setIsModalActive={setIsModalActive}
+        />
       </CartWrapper>
-      {/* <CartModal /> */}
+      {isModalActive && (
+        <CartModal
+          isModalActive={isModalActive}
+          setIsModalActive={setIsModalActive}
+        />
+      )}
     </Wrapper>
   );
 }

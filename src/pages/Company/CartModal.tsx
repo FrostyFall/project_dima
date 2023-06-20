@@ -1,11 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function CartModal() {
+type Props = {
+  isModalActive: boolean;
+  setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+// добавил тип пропс и сами пропсы в Cart
+// повесил ОНКЛИКИ на Modal, ModalContent, closeBtn, CTAbutton
+
+export default function CartModal({ isModalActive, setIsModalActive }: Props) {
   return (
-    <Modal>
-      <ModalContent>
-        <button className="closeBtn">X</button>
+    <Modal onClick={() => setIsModalActive(false)}>
+      <ModalContent onClick={(e) => e.stopPropagation()}>
+        <button onClick={() => setIsModalActive(false)} className="closeBtn">
+          X
+        </button>
         <p className="company__title">Pizza Planet</p>
         <Wrapper>
           <Product>
@@ -86,7 +96,9 @@ export default function CartModal() {
             <Input id="phone" type="phone" />
           </div>
         </form>
-        <CTAButton>Оформить заказ</CTAButton>
+        <CTAButton onClick={() => setIsModalActive(false)}>
+          Оформить заказ
+        </CTAButton>
       </ModalContent>
     </Modal>
   );

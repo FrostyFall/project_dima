@@ -28,11 +28,11 @@ export default function ProductModal({ product }: Props) {
           <ContentWrapper>
             <div className="container">
               <p className="product__title">{product.name}</p>
-              <p className="product__price">15 p.</p>
+              <p className="product__price">{product.price}</p>
             </div>
-            <p className="product__weight">109 кг</p>
+            <p className="product__weight">{product.weight}</p>
             <p className="product__ingredients">
-              Два яйца, банан, секретный соус
+              {product.ingredientsRange}
             </p>
           </ContentWrapper>
           <ButtonsWrapper>

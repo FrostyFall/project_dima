@@ -10,7 +10,7 @@ export default function ProductTypesContainer() {
 
   return (
     <Wrapper>
-      {selectedCompany?.productTypeRange.map((type) => (
+      {selectedCompany?.productTypeRange?.map((type) => (
         <ProductType companyId={selectedCompany.id} type={type} />
       ))}
     </Wrapper>

@@ -1,7 +1,15 @@
 import styled from "styled-components";
 import { Close } from "../../static";
 
-export default function Cart() {
+type Props = {
+  isModalActive: boolean;
+  setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+// добавил тип пропс и сами пропсы в Cart
+// повесил на кнопку ОНКЛИК
+
+export default function Cart({ isModalActive, setIsModalActive }: Props) {
   const isCartEmpty = false;
 
   return (
@@ -100,7 +108,9 @@ export default function Cart() {
             <span>Итого</span>
             <span className="pcart__summary-price">124 р.</span>
           </FooterInfo>
-          <CTAButton>Оформить заказ</CTAButton>
+          <CTAButton onClick={() => setIsModalActive(true)}>
+            Оформить заказ
+          </CTAButton>
         </Footer>
       )}
     </Wrapper>
