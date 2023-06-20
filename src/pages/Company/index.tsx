@@ -2,8 +2,6 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Cart from "./Cart";
 import ProductTypesContainer from "./ProductTypesContainer";
-// import CompanyContainer from "./CompanyContainer";
-// import FilterContainer from "./FilterContainer";
 
 export default function Company() {
   const { id } = useParams();
@@ -24,7 +22,7 @@ export default function Company() {
             <TypesNav>
               <TypesList>
                 <TypesItem>
-                  <a href=''>Пиццы</a>
+                  <a href='#'>Пиццы</a>
                 </TypesItem>
                 <TypesItem>Комбо</TypesItem>
                 <TypesItem>Паста</TypesItem>

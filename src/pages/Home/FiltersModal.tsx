@@ -1,172 +1,60 @@
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Close as CloseIcon } from "../../static";
 import FiltersRadio from "./FiltersRadio";
 import FiltersCheckbox from "./FiltersCheckbox";
-import { toggleFiltersModal } from "src/store/actions";
-
-const productTypes = [
-  {
-    id: 1,
-    name: "pizza",
-    nameRu: "пицца",
-  },
-  {
-    id: 2,
-    name: "shaurma",
-    nameRu: "шаурма",
-  },
-  {
-    id: 3,
-    name: "sushi",
-    nameRu: "суши",
-  },
-  {
-    id: 4,
-    name: "burgers",
-    nameRu: "бургеры",
-  },
-  {
-    id: 5,
-    name: "soups",
-    nameRu: "супы",
-  },
-  {
-    id: 6,
-    name: "hot meals",
-    nameRu: "горячие блюда",
-  },
-  {
-    id: 7,
-    name: "sashlik",
-    nameRu: "шашлык",
-  },
-  {
-    id: 8,
-    name: "salads",
-    nameRu: "салаты",
-  },
-  {
-    id: 6,
-    name: "hot meals",
-    nameRu: "горячие блюда",
-  },
-  {
-    id: 7,
-    name: "sashlik",
-    nameRu: "шашлык",
-  },
-  {
-    id: 8,
-    name: "salads",
-    nameRu: "салаты",
-  },
-  {
-    id: 6,
-    name: "hot meals",
-    nameRu: "горячие блюда",
-  },
-  {
-    id: 7,
-    name: "sashlik",
-    nameRu: "шашлык",
-  },
-  {
-    id: 8,
-    name: "salads",
-    nameRu: "салаты",
-  },
-];
-
-interface IPaymentMethods {
-  cash: boolean;
-  online: boolean;
-  courier: boolean;
-}
-
-interface IState {
-  selectedPaymentMethods: IPaymentMethods;
-  selectedMenu: string;
-}
-
-interface IFormState {
-  initialState: IState;
-  currentState: IState;
-  stateChanged: boolean;
-}
+import {
+  resetSelectedProductTypeIds,
+  setFormSelectedPTypeId,
+  setFullFormPaymentMethods,
+  setFullSelectedPaymentMethods,
+  setSelectedProductTypeId,
+  toggleFiltersModal,
+} from "src/store/actions";
+import { IStore } from "src/store/interfaces/store.interface";
 
 export default function FiltersModal() {
-  const [formState, setFormState] = useState<IFormState>();
+  const productTypes = useSelector((store: IStore) => store.productTypes.data);
+  const paymentMethods = useSelector(
+    (store: IStore) => store.paymentMethods.data
+  );
+  const selectedFormPTypeId = useSelector(
+    (store: IStore) => store.filters.formSelectedPTypeId
+  );
+  const selectedProductTypeId = useSelector(
+    (store: IStore) => store.filters.selectedProductTypeId
+  );
+  const formPaymentMethods = useSelector(
+    (store: IStore) => store.filters.formPaymentMethods
+  );
+  const selectedPaymentMethods = useSelector(
+    (store: IStore) => store.filters.selectedPaymentMethods
+  );
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const newState: IState = {
-      selectedPaymentMethods: {
-        cash: false,
-        online: false,
-        courier: false,
-      },
-      selectedMenu: "all",
-    };
+  const onApplyHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
 
-    const newFormState: IFormState = {
-      initialState: { ...newState },
-      currentState: { ...newState },
-      stateChanged: false,
-    };
+    if (selectedProductTypeId !== selectedFormPTypeId)
+      dispatch(setSelectedProductTypeId(selectedFormPTypeId));
 
-    setFormState(newFormState);
-  }, []);
+    dispatch(setFullSelectedPaymentMethods(formPaymentMethods));
 
-  const onChangeHandler = (e: FormEvent<HTMLFormElement>) => {
-    const target = e.target as HTMLInputElement;
-
-    if (target.name === "menu") {
-      setFormState((prevState) => {
-        if (prevState) {
-          const newState = { ...prevState };
-          newState.currentState.selectedMenu = target.value;
-
-          newState.stateChanged =
-            newState.currentState.selectedMenu !==
-            newState.initialState.selectedMenu;
-
-          return newState;
-        }
-
-        return prevState;
-      });
-    } else if (target.name === "payment-method") {
-      setFormState((prevState) => {
-        if (prevState) {
-          const newState = { ...prevState };
-
-          newState.currentState.selectedPaymentMethods["cash"] = true;
-
-          if (target.value === "cash") {
-            newState.currentState.selectedPaymentMethods.cash =
-              !newState.currentState.selectedPaymentMethods.cash;
-          } else if (target.value === "online") {
-            newState.currentState.selectedPaymentMethods.online =
-              !newState.currentState.selectedPaymentMethods.online;
-          } else if (target.value === "courier") {
-            newState.currentState.selectedPaymentMethods.courier =
-              !newState.currentState.selectedPaymentMethods.courier;
-          }
-
-          newState.stateChanged =
-            newState.currentState.selectedMenu !==
-            newState.initialState.selectedMenu;
-
-          return newState;
-        }
-
-        return prevState;
-      });
-    }
+    dispatch(toggleFiltersModal(false));
   };
+
+  const onResetHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    dispatch(resetSelectedProductTypeIds());
+    dispatch(toggleFiltersModal(false));
+  };
+
+  useEffect(() => {
+    dispatch(setFormSelectedPTypeId(selectedProductTypeId));
+    dispatch(setFullFormPaymentMethods(selectedPaymentMethods));
+  }, [dispatch, selectedProductTypeId, selectedPaymentMethods]);
 
   return (
     <Wrapper onClick={() => dispatch(toggleFiltersModal(false))}>
@@ -178,20 +66,20 @@ export default function FiltersModal() {
             </SvgWrapper>
           </CloseModalButton>
         </ModalHeader>
-        <Form onChange={onChangeHandler}>
+        <Form>
           <Fieldset name='payment-method'>
             <h2 className='fs__title'>Способы оплаты</h2>
             <div className='fs__divider'></div>
             <div className='fs__form-controls'>
-              <FiltersCheckbox
-                id={"cash"}
-                name={"payment-method"}
-                value={"cash"}
-                isChecked={
-                  !!formState?.currentState.selectedPaymentMethods.cash
-                }
-                label={"Наличными"}
-              />
+              {paymentMethods.map((method) => (
+                <FiltersCheckbox
+                  key={method.id}
+                  id={method.id}
+                  name={"payment-method"}
+                  value={method.id}
+                  label={method.nameRu}
+                />
+              ))}
             </div>
           </Fieldset>
           <Fieldset name='menu'>
@@ -199,21 +87,17 @@ export default function FiltersModal() {
             <div className='fs__divider'></div>
             <div className='fs__form-controls'>
               <FiltersRadio
-                id={"all-deliveries"}
+                id={-1}
                 name={"menu"}
-                value={"all"}
-                isChecked={formState?.currentState.selectedMenu === "all"}
+                value={-1}
                 label={"Все доставки"}
               />
               {productTypes.map((productType) => (
                 <FiltersRadio
-                  id={productType.id.toString()}
+                  key={productType.id}
+                  id={productType.id}
                   name={"menu"}
-                  value={`menu-${productType.id}`}
-                  isChecked={
-                    formState?.currentState.selectedMenu ===
-                    `menu-${productType.id}`
-                  }
+                  value={productType.id}
                   label={productType.nameRu}
                 />
               ))}
@@ -221,9 +105,12 @@ export default function FiltersModal() {
           </Fieldset>
         </Form>
         <ModalFooter>
-          <ApplyFiltersButton>Применить</ApplyFiltersButton>
-          {formState?.stateChanged && (
-            <ResetFiltersButton>
+          <ApplyFiltersButton type='button' onClick={onApplyHandler}>
+            Применить
+          </ApplyFiltersButton>
+          {(-1 !== selectedFormPTypeId ||
+            selectedPaymentMethods.length !== formPaymentMethods.length) && (
+            <ResetFiltersButton onClick={onResetHandler}>
               <SvgWrapper>
                 <CloseIcon />
               </SvgWrapper>

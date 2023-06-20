@@ -1,30 +1,32 @@
+import { IStore } from "src/store/interfaces/store.interface";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { setFormSelectedPTypeId } from "src/store/actions";
 
 interface Props {
-  id: string;
-  value: string;
+  id: number;
+  value: number;
   name: string;
-  isChecked: boolean;
   label: string;
 }
 
-export default function FiltersRadio({
-  id,
-  name,
-  value,
-  isChecked,
-  label,
-}: Props) {
+export default function FiltersRadio({ id, name, value, label }: Props) {
+  const formSelectedPTypeId = useSelector(
+    (store: IStore) => store.filters.formSelectedPTypeId
+  );
+  const dispatch = useDispatch();
+
   return (
-    <Label className='label' htmlFor={id}>
+    <Label className='label' htmlFor={`${id.toString()}-radio`}>
       <Input
         type='radio'
-        id={id}
+        id={`${id.toString()}-radio`}
         name={name}
         value={value}
-        checked={isChecked}
+        checked={formSelectedPTypeId === id}
+        onChange={() => dispatch(setFormSelectedPTypeId(id))}
       />
-      {label}
+      <span className='label-text'>{label}</span>
     </Label>
   );
 }
@@ -35,7 +37,7 @@ const Label = styled.label`
   align-items: center;
   width: 100%;
 
-  &::first-letter {
+  .label-text::first-letter {
     text-transform: uppercase;
   }
 `;
