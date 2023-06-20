@@ -146,7 +146,7 @@ const Header = styled.header`
 const Main = styled.div``;
 const Content = styled.div`
   height: 76vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 const Product = styled.div`
   display: flex;

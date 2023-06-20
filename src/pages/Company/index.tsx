@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Cart from "./Cart";
 import ProductTypesContainer from "./ProductTypesContainer";
+import CartModal from "./CartModal";
 
 export default function Company() {
   const { id } = useParams();
@@ -9,20 +10,20 @@ export default function Company() {
 
   return (
     <Wrapper>
-      <div className='company-content'>
-        <div className='company-info'>
-          <div className='company-info__header'>
+      <div className="company-content">
+        <div className="company-info">
+          <div className="company-info__header">
             <H2>Pizza Planet</H2>
             <DeliveryInfoWrapper>
               <DeliveryInfo>От 14 руб.</DeliveryInfo>
               <DeliveryInfo>Доставка бесплатная</DeliveryInfo>
             </DeliveryInfoWrapper>
           </div>
-          <div className='company-info__footer'>
+          <div className="company-info__footer">
             <TypesNav>
               <TypesList>
                 <TypesItem>
-                  <a href='#'>Пиццы</a>
+                  <a href="#">Пиццы</a>
                 </TypesItem>
                 <TypesItem>Комбо</TypesItem>
                 <TypesItem>Паста</TypesItem>
@@ -32,13 +33,14 @@ export default function Company() {
           </div>
         </div>
 
-        <div className='company-products'>
+        <div className="company-products">
           <ProductTypesContainer />
         </div>
       </div>
       <CartWrapper>
         <Cart />
       </CartWrapper>
+      <CartModal />
     </Wrapper>
   );
 }
