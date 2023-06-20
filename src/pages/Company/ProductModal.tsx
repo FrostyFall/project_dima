@@ -13,28 +13,29 @@ export default function ProductModal() {
   return (
     <Modal>
       <ModalContent>
-        <button className="closeBtn">X</button>
+        <button className='closeBtn'>X</button>
         <img
-          className="img"
-          src="https://i1.sndcdn.com/artworks-000635780677-yhmbpw-t500x500.jpg"
+          className='img'
+          src='https://i1.sndcdn.com/artworks-000635780677-yhmbpw-t500x500.jpg'
+          alt='Product'
         />
         <Wrapper>
           <ContentWrapper>
-            <div className="container">
-              <p className="product__title">Билли Херрингтон</p>
-              <p className="product__price">15 p.</p>
+            <div className='container'>
+              <p className='product__title'>Билли Херрингтон</p>
+              <p className='product__price'>15 p.</p>
             </div>
-            <p className="product__weight">109 кг</p>
-            <p className="product__ingredients">
+            <p className='product__weight'>109 кг</p>
+            <p className='product__ingredients'>
               Два яйца, банан, секретный соус
             </p>
           </ContentWrapper>
           <ButtonsWrapper>
-            <button className="btn minus" onClick={() => decrement()}>
+            <button className='btn minus' onClick={() => decrement()}>
               -
             </button>
-            <p className="count">{count}</p>
-            <button className="btn plus" onClick={() => increment()}>
+            <p className='count'>{count}</p>
+            <button className='btn plus' onClick={() => increment()}>
               +
             </button>
           </ButtonsWrapper>

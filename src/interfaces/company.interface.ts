@@ -1,3 +1,5 @@
+import { IPaymentMethod } from "./payment-method.interface";
+
 export interface ICompany {
   id: number;
   name: string;
@@ -17,5 +19,5 @@ export interface ICompany {
     name: string;
   }[];
   location: string;
-  paymentMethods: string[];
+  paymentMethods: IPaymentMethod[];
 }

@@ -1,30 +1,32 @@
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { setFormPaymentMethods } from "src/store/actions";
+import { IStore } from "src/store/interfaces/store.interface";
 
 interface Props {
-  id: string;
-  value: string;
+  id: number;
+  value: number;
   name: string;
-  isChecked: boolean;
   label: string;
 }
 
-export default function FiltersCheckbox({
-  id,
-  name,
-  value,
-  isChecked,
-  label,
-}: Props) {
+export default function FiltersCheckbox({ id, name, value, label }: Props) {
+  const formPaymentMethods = useSelector(
+    (store: IStore) => store.filters.formPaymentMethods
+  );
+  const dispatch = useDispatch();
+
   return (
-    <Label className='label' htmlFor={id}>
+    <Label className='label' htmlFor={`${id.toString()}-check`}>
       <Input
         type='checkbox'
-        id={id}
+        id={`${id.toString()}-check`}
         name={name}
         value={value}
-        checked={isChecked}
+        checked={formPaymentMethods.includes(id)}
+        onChange={() => dispatch(setFormPaymentMethods(id))}
       />
-      {label}
+      <span className='label-text'>{label}</span>
     </Label>
   );
 }
@@ -34,6 +36,10 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   width: 100%;
+
+  .label-text::first-letter {
+    text-transform: uppercase;
+  }
 `;
 const Input = styled.input`
   appearance: none;
