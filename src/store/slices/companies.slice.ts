@@ -5,6 +5,7 @@ import { ICompany } from "src/interfaces/company.interface";
 const InitialState: ICompaniesState = {
   initialData: [],
   data: [],
+  selectedCompany: null,
 };
 
 export const companiesSlice = createSlice({
@@ -20,6 +21,12 @@ export const companiesSlice = createSlice({
     ) => {
       state.initialData = [...payload];
       state.data = [...payload];
+    },
+    setSelectedCompany: (state, { payload }: PayloadAction<ICompany>) => {
+      state.selectedCompany = payload;
+    },
+    resetSelectedCompany: (state) => {
+      state.selectedCompany = null;
     },
   },
 });

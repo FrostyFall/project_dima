@@ -2,6 +2,7 @@ import styled from "styled-components";
 import CompanyPreview from "./CompanyPreview";
 import { IStore } from "src/store/interfaces/store.interface";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export default function CompanyContainer() {
   const companies = useSelector((store: IStore) => store.companies.data);
@@ -11,6 +12,11 @@ export default function CompanyContainer() {
   const selectedPaymentMethods = useSelector(
     (store: IStore) => store.filters.selectedPaymentMethods
   );
+  const [isEmpty, setIsEmpty] = useState<boolean>(true);
+
+  useEffect(() => {
+    setIsEmpty(true);
+  }, [selectedProductTypeId, selectedPaymentMethods]);
 
   return (
     <Wrapper>
@@ -35,13 +41,16 @@ export default function CompanyContainer() {
 
           return suitable;
         })
-        .map((company) => (
-          <CompanyPreview key={company.id} company={company} />
-        ))}
+        .map((company) => {
+          if (isEmpty) {
+            setIsEmpty(false);
+          }
+          return <CompanyPreview key={company.id} company={company} />;
+        })}
+      {isEmpty && <div>Нет товаров</div>}
     </Wrapper>
   );
 }
-
 const Wrapper = styled.div`
   display: flex;
   justify-content: flex-start;

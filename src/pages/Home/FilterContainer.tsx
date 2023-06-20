@@ -32,7 +32,7 @@ export default function FilterContainer() {
 }
 
 const MainWrapper = styled.div`
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 `;
 const Wrapper = styled.header`
   display: flex;

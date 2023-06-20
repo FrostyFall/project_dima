@@ -17,6 +17,7 @@ export interface ICompany {
   productTypeRange: {
     id: number;
     name: string;
+    nameRu: string;
   }[];
   location: string;
   paymentMethods: IPaymentMethod[];

@@ -10,34 +10,40 @@ export default function ProductPreview({ product }: Props) {
   return (
     <Figure onClick={() => <ProductModal product={product} />}>
       <img
-        src="https://s5o.ru/storage/simple/cyber/edt/bb/f9/38/f5/cyberef95b3ecf51.jpg"
-        alt="Product"
+        src='https://s5o.ru/storage/simple/cyber/edt/bb/f9/38/f5/cyberef95b3ecf51.jpg'
+        alt='Product'
       />
       <Figcaption>
         <ReviewsWrapper>
-          <span className="product__reviews-score">
+          <span className='product__reviews-score'>
             {product.reviewsInfo.score}
           </span>
-          <span className="product__reviews-count">
+          <span className='product__reviews-count'>
             {product.reviewsInfo.count} отзыва
           </span>
         </ReviewsWrapper>
         <InfoWrapper>
-          <div className="product__left-info">
-            <h3 className="product__name product-primary-info">
+          <div className='product__left-info'>
+            <h3 className='product__name product-primary-info'>
               {product.name}
             </h3>
-            <span className="product__ingredients product-secondary-info">
+            <span className='product__ingredients product-secondary-info'>
               {product.ingredientsRange.join(", ")}
             </span>
           </div>
-          <div className="product__right-info">
-            <div className="product__price product-primary-info">23,50 р.</div>
-            <div className="product__weight product-secondary-info">650 г</div>
-            <div className="product__size product-secondary-info">30 см</div>
+          <div className='product__right-info'>
+            <div className='product__price product-primary-info'>
+              {product.price} р.
+            </div>
+            <div className='product__weight product-secondary-info'>
+              {product.weight} г
+            </div>
+            <div className='product__size product-secondary-info'>
+              {product.size} см
+            </div>
           </div>
         </InfoWrapper>
-        <CTAButton type="button">Добавить в корзину</CTAButton>
+        <CTAButton type='button'>Добавить в корзину</CTAButton>
       </Figcaption>
     </Figure>
   );

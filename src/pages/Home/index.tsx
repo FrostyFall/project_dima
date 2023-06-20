@@ -23,7 +23,7 @@ export default function Home() {
 }
 
 const Wrapper = styled.div`
-  padding: 2.5rem 0;
+  padding: 1.5rem 0;
 `;
 
 export const homeLoader = async () => {

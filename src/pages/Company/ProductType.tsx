@@ -1,51 +1,38 @@
 import styled from "styled-components";
 import ProductPreview from "./ProductPreview";
+import { useEffect, useState } from "react";
+import { IProduct } from "src/interfaces/product.interface";
 
-const data = [
-  {
-    id: 1,
-    companyId: 1,
-    productType: {
-      id: 1,
-      name: "пиццы",
-    },
-    name: "Пицца 'Пеперони'",
-    size: 30,
-    weight: 650,
-    ingredientsRange: ["тесто", "сыр 'Моцарелла'", "пеперони", "соус томатный"],
-    reviewsInfo: {
-      score: 4.5,
-      count: 31,
-    },
-  },
-  {
-    id: 2,
-    companyId: 1,
-    productType: {
-      id: 1,
-      name: "пиццы",
-    },
-    name: "Пицца 'Кок в рот'",
-    size: 30,
-    weight: 650,
-    ingredientsRange: ["тесто", "сыр 'Моцарелла'", "пеперони", "соус томатный"],
-    reviewsInfo: {
-      score: 4.5,
-      count: 31,
-    },
-  },
-];
+interface Props {
+  type: {
+    id: number;
+    name: string;
+    nameRu: string;
+  };
+  companyId: number;
+}
 
-export default function ProductType() {
+export default function ProductType({ type, companyId }: Props) {
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  useEffect(() => {
+    fetch(
+      `http://localhost:3001/products?companyId=${companyId}&productType.id=${type.id}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+      });
+  }, [companyId, type]);
+
   return (
     <Wrapper>
-      <h2 className='product__type-name'>Пиццы</h2>
+      <h2 className='product__type-name'>{type.nameRu}</h2>
       <div className='product__previews-container'>
-        <ProductPreview product={data[0]} />
-        <ProductPreview product={data[0]} />
-        <ProductPreview product={data[1]} />
-        <ProductPreview product={data[1]} />
-        <ProductPreview product={data[0]} />
+        {products.map((product) => (
+          <ProductPreview product={product} />
+        ))}
+        {products.length === 0 && <span>Нет товаров в данной категории</span>}
       </div>
     </Wrapper>
   );
@@ -56,6 +43,9 @@ const Wrapper = styled.div`
 
   .product__type-name {
     margin-bottom: 1.25rem;
+    &::first-letter {
+      text-transform: capitalize;
+    }
   }
 
   .product__previews-container {

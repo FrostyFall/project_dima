@@ -33,6 +33,7 @@ export default function Filters() {
           {productType.nameRu}
         </Button>
       ))}
+      {productTypes.length === 0 && <div>Нет типов</div>}
     </Wrapper>
   );
 }
@@ -41,6 +42,7 @@ const Wrapper = styled.header`
   display: flex;
   align-items: flex-start;
   column-gap: 0.75rem;
+  row-gap: 0.75rem;
   flex-wrap: wrap;
   font-size: 1.25rem;
   transform: translateX(-0.4em);

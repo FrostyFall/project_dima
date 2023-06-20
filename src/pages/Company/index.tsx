@@ -3,37 +3,51 @@ import styled from "styled-components";
 import Cart from "./Cart";
 import ProductTypesContainer from "./ProductTypesContainer";
 import CartModal from "./CartModal";
+import store from "../../store";
+import { ICompany } from "src/interfaces/company.interface";
+import { resetSelectedCompany, setSelectedCompany } from "src/store/actions";
+import { IStore } from "src/store/interfaces/store.interface";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function Company() {
-  const { id } = useParams();
-  console.log(id);
+  const selectedCompany = useSelector(
+    (state: IStore) => state.companies.selectedCompany
+  );
+  const dispatch = useDispatch();
 
   return (
     <Wrapper>
-      <div className="company-content">
-        <div className="company-info">
-          <div className="company-info__header">
-            <H2>Pizza Planet</H2>
+      <div className='company-content'>
+        <div className='company-info'>
+          <div className='company-info__header'>
+            <H2>{selectedCompany?.name}</H2>
             <DeliveryInfoWrapper>
-              <DeliveryInfo>От 14 руб.</DeliveryInfo>
-              <DeliveryInfo>Доставка бесплатная</DeliveryInfo>
+              <DeliveryInfo>
+                От {selectedCompany?.deliveryInfo.minPrice} руб.
+              </DeliveryInfo>
+              <DeliveryInfo>
+                Доставка{" "}
+                {selectedCompany?.deliveryInfo.deliveryPrice
+                  ? `${selectedCompany?.deliveryInfo.deliveryPrice} руб.`
+                  : "бесплатная"}
+              </DeliveryInfo>
             </DeliveryInfoWrapper>
           </div>
-          <div className="company-info__footer">
+          <div className='company-info__footer'>
             <TypesNav>
               <TypesList>
-                <TypesItem>
-                  <a href="#">Пиццы</a>
-                </TypesItem>
-                <TypesItem>Комбо</TypesItem>
-                <TypesItem>Паста</TypesItem>
-                <TypesItem>Закуски</TypesItem>
+                {selectedCompany?.productTypeRange.map((type) => (
+                  <TypesItem>
+                    <a href={`#${type.id}-prod-type`}>{type.nameRu}</a>
+                  </TypesItem>
+                ))}
               </TypesList>
             </TypesNav>
           </div>
         </div>
 
-        <div className="company-products">
+        <div className='company-products'>
           <ProductTypesContainer />
         </div>
       </div>
@@ -112,6 +126,10 @@ const TypesItem = styled.li`
   font-weight: 500;
   cursor: pointer;
 
+  &::first-letter {
+    text-transform: capitalize;
+  }
+
   a {
     text-decoration: none;
   }
@@ -125,3 +143,14 @@ const TypesItem = styled.li`
     color: #000;
   }
 `;
+
+export const companyLoader = async ({ params }: { params: any }) => {
+  const companyRes = await fetch(
+    `http://localhost:3001/companies/${params.id}`
+  );
+  const companyJson = (await companyRes.json()) as ICompany;
+
+  store.dispatch(setSelectedCompany(companyJson));
+
+  return null;
+};
