@@ -6,6 +6,6 @@ export default function Cart() {
 
 const Wrapper = styled.div`
   background-color: #333;
-  min-width: 200px;
+  min-width: 250px;
   color: #fff;
 `;

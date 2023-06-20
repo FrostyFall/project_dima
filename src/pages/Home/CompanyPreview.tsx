@@ -55,7 +55,7 @@ const Figure = styled.figure`
   cursor: pointer;
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  transition: transform 0.175s;
+  transition: transform 0.3s;
 
   img {
     border-top-left-radius: 8px;
@@ -75,7 +75,7 @@ const Figure = styled.figure`
   }
 
   &:hover {
-    transform: translateY(-2%);
+    transform: translateY(-1%);
   }
 `;
 

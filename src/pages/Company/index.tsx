@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Cart from "./Cart";
+import ProductTypesContainer from "./ProductTypesContainer";
 // import CompanyContainer from "./CompanyContainer";
 // import FilterContainer from "./FilterContainer";
 
@@ -32,7 +33,9 @@ export default function Company() {
             </TypesNav>
           </div>
         </div>
-        <div className='company-products'></div>
+        <div className='company-products'>
+          <ProductTypesContainer />
+        </div>
       </div>
       <CartWrapper>
         <Cart />
@@ -42,7 +45,7 @@ export default function Company() {
 }
 
 const Wrapper = styled.div`
-  padding: 2.5rem 0;
+  padding: 1.5rem 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -53,14 +56,20 @@ const Wrapper = styled.div`
   }
 
   .company-info {
-    border-bottom: 1px solid #eeeeee;
-    padding-bottom: 2rem;
+    border-bottom: 2px solid #eeeeee;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .company-info__header {
     display: flex;
     align-items: center;
     margin-bottom: 0.5rem;
+  }
+
+  .company-info__footer {
+    position: sticky;
+    top: 0;
   }
 `;
 const CartWrapper = styled.div`
@@ -83,6 +92,8 @@ const DeliveryInfoWrapper = styled.div`
 `;
 const TypesNav = styled.nav`
   width: 100%;
+  position: sticky;
+  top: 0;
 `;
 const TypesList = styled.ul`
   display: flex;
