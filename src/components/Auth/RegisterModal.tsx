@@ -203,6 +203,20 @@ const ModalForm = styled.form`
       font-weight: bold;
     }
   }
+  @media (max-width: 550px) {
+    width: 280px;
+    height: 450px;
+
+    .title {
+      font-size: 20px;
+    }
+    .text {
+      font-size: 16px;
+    }
+    .container__btn {
+      font-size: 14px;
+    }
+  }
 `;
 const Submit = styled.input`
   font-size: 30px;
@@ -216,14 +230,30 @@ const Submit = styled.input`
   &:hover {
     background: #00a2e8;
   }
+
+  @media (max-width: 550px) {
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+  }
 `;
 const Input = styled.input`
   width: 300px;
   height: 40px;
   padding: 5px 10px;
   font-size: 20px;
+
+  @media (max-width: 550px) {
+    width: 200px;
+    height: 36px;
+    font-size: 16px;
+  }
 `;
 const ErrorMessage = styled.p`
   color: red;
   font-size: 18px;
+
+  @media (max-width: 550px) {
+    font-size: 14px;
+  }
 `;

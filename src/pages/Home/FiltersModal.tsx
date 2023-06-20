@@ -250,7 +250,7 @@ const Wrapper = styled.div`
 `;
 const Container = styled.div`
   background-color: #fff;
-  width: 330px;
+  width: 300px;
   min-height: 200px;
   max-height: 600px;
   border-radius: 10px;
@@ -306,7 +306,7 @@ const ModalFooter = styled.footer`
   align-items: center;
   column-gap: 0.5rem;
   position: sticky;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   right: 0;
   padding: 1.25em;
