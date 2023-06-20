@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { IProduct } from "src/interfaces/product.interface";
 
-export default function ProductModal() {
+interface Props {
+  product: IProduct;
+}
+
+export default function ProductModal({ product }: Props) {
   const [count, setCount] = useState(1);
   function increment() {
     if (count < 100) setCount(count + 1);
@@ -13,29 +18,29 @@ export default function ProductModal() {
   return (
     <Modal>
       <ModalContent>
-        <button className='closeBtn'>X</button>
+        <button className="closeBtn">X</button>
         <img
-          className='img'
-          src='https://i1.sndcdn.com/artworks-000635780677-yhmbpw-t500x500.jpg'
-          alt='Product'
+          className="img"
+          src="https://i1.sndcdn.com/artworks-000635780677-yhmbpw-t500x500.jpg"
+          alt="Product"
         />
         <Wrapper>
           <ContentWrapper>
-            <div className='container'>
-              <p className='product__title'>Билли Херрингтон</p>
-              <p className='product__price'>15 p.</p>
+            <div className="container">
+              <p className="product__title">{product.name}</p>
+              <p className="product__price">15 p.</p>
             </div>
-            <p className='product__weight'>109 кг</p>
-            <p className='product__ingredients'>
+            <p className="product__weight">109 кг</p>
+            <p className="product__ingredients">
               Два яйца, банан, секретный соус
             </p>
           </ContentWrapper>
           <ButtonsWrapper>
-            <button className='btn minus' onClick={() => decrement()}>
+            <button className="btn minus" onClick={() => decrement()}>
               -
             </button>
-            <p className='count'>{count}</p>
-            <button className='btn plus' onClick={() => increment()}>
+            <p className="count">{count}</p>
+            <button className="btn plus" onClick={() => increment()}>
               +
             </button>
           </ButtonsWrapper>

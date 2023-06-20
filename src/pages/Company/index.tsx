@@ -40,7 +40,7 @@ export default function Company() {
       <CartWrapper>
         <Cart />
       </CartWrapper>
-      <CartModal />
+      {/* <CartModal /> */}
     </Wrapper>
   );
 }
