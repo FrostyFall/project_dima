@@ -31,9 +31,15 @@ export default function ProductPreview({ product }: Props) {
             </span>
           </div>
           <div className='product__right-info'>
-            <div className='product__price product-primary-info'>23,50 р.</div>
-            <div className='product__weight product-secondary-info'>650 г</div>
-            <div className='product__size product-secondary-info'>30 см</div>
+            <div className='product__price product-primary-info'>
+              {product.price} р.
+            </div>
+            <div className='product__weight product-secondary-info'>
+              {product.weight} г
+            </div>
+            <div className='product__size product-secondary-info'>
+              {product.size} см
+            </div>
           </div>
         </InfoWrapper>
         <CTAButton type='button'>Добавить в корзину</CTAButton>

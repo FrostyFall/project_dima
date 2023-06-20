@@ -5,8 +5,12 @@ import paymentMethodsSlice from "./slices/payment-methods.slice";
 import productTypesSlice from "./slices/product-types.slice";
 
 export const { toggleFiltersModal } = modalsSlice.actions;
-export const { setCompaniesData, setCompaniesInitialData } =
-  companiesSlice.actions;
+export const {
+  setCompaniesData,
+  setCompaniesInitialData,
+  setSelectedCompany,
+  resetSelectedCompany,
+} = companiesSlice.actions;
 export const { setProductTypesData } = productTypesSlice.actions;
 export const {
   setSelectedProductTypeId,

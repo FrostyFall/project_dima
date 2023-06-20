@@ -1,12 +1,18 @@
 import styled from "styled-components";
 import ProductType from "./ProductType";
+import { useSelector } from "react-redux";
+import { IStore } from "src/store/interfaces/store.interface";
 
 export default function ProductTypesContainer() {
+  const selectedCompany = useSelector(
+    (state: IStore) => state.companies.selectedCompany
+  );
+
   return (
     <Wrapper>
-      <ProductType />
-      <ProductType />
-      <ProductType />
+      {selectedCompany?.productTypeRange.map((type) => (
+        <ProductType companyId={selectedCompany.id} type={type} />
+      ))}
     </Wrapper>
   );
 }

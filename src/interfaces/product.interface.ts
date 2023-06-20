@@ -13,4 +13,5 @@ export interface IProduct {
     score: number;
     count: number;
   };
+  price: number;
 }
