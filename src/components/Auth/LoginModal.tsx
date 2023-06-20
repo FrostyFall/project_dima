@@ -38,58 +38,61 @@ export default function LoginModal({
         setActive(false);
       }}
     >
-      <ModalForm
-        onClick={(e) => e.stopPropagation()}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <p className="title">Авторизация</p>
-        <div className="container">
-          <label htmlFor="email" className="text">
-            Почта
-          </label>
-          <Input
-            {...register("email", {
-              required: true,
-              pattern: {
-                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                message: "Неверный ввод",
-              },
-            })}
-            id="email"
-            autoComplete="off"
-          />
-          <ErrorMessage>{errors.email?.message}</ErrorMessage>
-        </div>
-        <div className="container">
-          <label htmlFor="password" className="text">
-            Пароль
-          </label>
-          <Input
-            {...register("password", {
-              required: true,
-              minLength: { value: 8, message: "Минимум 8 знаков" },
-              maxLength: { value: 30, message: "Максимум 30 знаков" },
-            })}
-            id="password"
-            autoComplete="off"
-          />
-          <ErrorMessage>{errors.password?.message}</ErrorMessage>
-        </div>
-        <Submit type="submit" placeholder="Войти" />
-        <div className="container center">
-          <button className="container__btn">Восстановить пароль</button>
-          <button
-            className="container__btn"
-            onClick={() => {
-              reset({ email: "", password: "" });
-              setActive(false);
-              setRegisterModalActive(true);
-            }}
-          >
-            Регистрация
-          </button>
-        </div>
-      </ModalForm>
+      <Wrapper>
+        <button className="closeBtn">X</button>
+        <ModalForm
+          onClick={(e) => e.stopPropagation()}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <p className="title">Авторизация</p>
+          <div className="container">
+            <label htmlFor="email" className="text">
+              Почта
+            </label>
+            <Input
+              {...register("email", {
+                required: true,
+                pattern: {
+                  value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                  message: "Неверный ввод",
+                },
+              })}
+              id="email"
+              autoComplete="off"
+            />
+            <ErrorMessage>{errors.email?.message}</ErrorMessage>
+          </div>
+          <div className="container">
+            <label htmlFor="password" className="text">
+              Пароль
+            </label>
+            <Input
+              {...register("password", {
+                required: true,
+                minLength: { value: 8, message: "Минимум 8 знаков" },
+                maxLength: { value: 30, message: "Максимум 30 знаков" },
+              })}
+              id="password"
+              autoComplete="off"
+            />
+            <ErrorMessage>{errors.password?.message}</ErrorMessage>
+          </div>
+          <Submit type="submit" placeholder="Войти" />
+          <div className="container center">
+            <button className="container__btn">Восстановить пароль</button>
+            <button
+              className="container__btn"
+              onClick={() => {
+                reset({ email: "", password: "" });
+                setActive(false);
+                setRegisterModalActive(true);
+              }}
+            >
+              Регистрация
+            </button>
+          </div>
+        </ModalForm>
+      </Wrapper>
     </Modal>
   );
 
@@ -106,6 +109,29 @@ const Modal = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1;
+`;
+const Wrapper = styled.div`
+  position: relative;
+
+  .closeBtn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 0 28px 0 0;
+    transition: 0.5s ease;
+    right: 0;
+
+    &:hover {
+      background-color: red;
+      color: #fff;
+      transition: 0.5s ease;
+    }
+  }
 `;
 const ModalForm = styled.form`
   width: 450px;
