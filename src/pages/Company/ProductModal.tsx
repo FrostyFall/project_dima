@@ -4,9 +4,10 @@ import { IProduct } from "src/interfaces/product.interface";
 
 interface Props {
   product: IProduct;
+  setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ProductModal({ product }: Props) {
+export default function ProductModal({ product, setIsModalActive }: Props) {
   const [count, setCount] = useState(1);
   function increment() {
     if (count < 100) setCount(count + 1);
@@ -16,9 +17,11 @@ export default function ProductModal({ product }: Props) {
   }
 
   return (
-    <Modal>
-      <ModalContent>
-        <button className="closeBtn">X</button>
+    <Modal onClick={() => setIsModalActive(false)}>
+      <ModalContent onClick={(e) => e.stopPropagation()}>
+        <button onClick={() => setIsModalActive(false)} className="closeBtn">
+          X
+        </button>
         <img
           className="img"
           src="https://i1.sndcdn.com/artworks-000635780677-yhmbpw-t500x500.jpg"
@@ -31,9 +34,7 @@ export default function ProductModal({ product }: Props) {
               <p className="product__price">{product.price}</p>
             </div>
             <p className="product__weight">{product.weight}</p>
-            <p className="product__ingredients">
-              {product.ingredientsRange}
-            </p>
+            <p className="product__ingredients">{product.ingredientsRange}</p>
           </ContentWrapper>
           <ButtonsWrapper>
             <button className="btn minus" onClick={() => decrement()}>

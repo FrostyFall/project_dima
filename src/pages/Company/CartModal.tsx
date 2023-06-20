@@ -2,14 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 type Props = {
-  isModalActive: boolean;
   setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 // добавил тип пропс и сами пропсы в Cart
 // повесил ОНКЛИКИ на Modal, ModalContent, closeBtn, CTAbutton
 
-export default function CartModal({ isModalActive, setIsModalActive }: Props) {
+export default function CartModal({ setIsModalActive }: Props) {
   return (
     <Modal onClick={() => setIsModalActive(false)}>
       <ModalContent onClick={(e) => e.stopPropagation()}>

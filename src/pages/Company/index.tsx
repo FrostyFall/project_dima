@@ -60,7 +60,6 @@ export default function Company() {
       </CartWrapper>
       {isModalActive && (
         <CartModal
-          isModalActive={isModalActive}
           setIsModalActive={setIsModalActive}
         />
       )}
