@@ -167,4 +167,8 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   column-gap: 2.75%;
   row-gap: 2rem;
+
+  @media (max-width: 540px) {
+    justify-content: space-around;
+  }
 `;

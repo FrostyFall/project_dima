@@ -94,4 +94,8 @@ const Button = styled.button`
   &:hover::after {
     opacity: 1;
   }
+
+  @media (max-width: 550px) {
+    font-size: 1rem;
+  }
 `;

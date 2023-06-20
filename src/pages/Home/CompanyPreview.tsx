@@ -69,13 +69,19 @@ const Figure = styled.figure`
     font-weight: 700;
     font-size: 1.2rem;
   }
-
   .company__delivery-info {
     font-size: 0.8rem;
   }
 
   &:hover {
     transform: translateY(-1%);
+  }
+
+  @media (max-width: 768px) {
+    width: 48.6%;
+  }
+  @media (max-width: 540px) {
+    width: 80%;
   }
 `;
 
@@ -114,7 +120,6 @@ const InfoWrapper = styled.div`
       text-transform: uppercase;
     }
   }
-
   .company__reviews-count {
     color: var(--text-secondary);
   }

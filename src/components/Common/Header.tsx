@@ -46,6 +46,10 @@ const Wrapper = styled.header`
     justify-content: space-between;
     align-items: center;
     margin: 20px 0 35px;
+
+    @media (max-width: 550px) {
+      flex-wrap: wrap;
+    }
   }
   .container_search {
     display: flex;
@@ -54,6 +58,11 @@ const Wrapper = styled.header`
     width: 100%;
     max-width: 775px;
     margin: 0 20px;
+
+    @media (max-width: 550px) {
+      order: 1;
+      margin: 30px 0 0;
+    }
   }
 
   hr {
@@ -62,10 +71,18 @@ const Wrapper = styled.header`
 `;
 const HeaderLocation = styled.div`
   font-size: 18px;
+
+  @media (max-width: 550px) {
+    font-size: 14px;
+  }
 `;
 const HeaderPhone = styled.div`
   font-size: 18px;
   font-weight: bold;
+
+  @media (max-width: 550px) {
+    font-size: 14px;
+  }
 `;
 const LogoWrapper = styled.div`
   width: 148px;
@@ -75,6 +92,17 @@ const LogoWrapper = styled.div`
   svg {
     min-width: 148px;
     min-height: 87px;
+  }
+
+  @media (max-width: 550px) {
+    margin-left: 20px;
+    /* width: 108px;
+    height: 64px;
+
+    svg {
+      min-width: 108px;
+      min-height: 64px;
+    } */
   }
 `;
 const HeaderSearchField = styled.input`
@@ -121,4 +149,8 @@ const HeaderContainer = styled.div`
   justify-content: center;
   width: 150px;
   height: 35px;
+
+  @media (max-width: 550px) {
+    width: 100px;
+  }
 `;

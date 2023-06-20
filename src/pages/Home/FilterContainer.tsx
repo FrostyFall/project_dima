@@ -44,6 +44,10 @@ const H2 = styled.h2`
   color: black;
   font-size: 2.25rem;
   font-weight: 700;
+
+  @media (max-width: 550px) {
+    font-size: 2rem;
+  }
 `;
 const Button = styled.button`
   display: flex;
