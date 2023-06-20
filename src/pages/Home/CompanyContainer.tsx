@@ -1,162 +1,43 @@
 import styled from "styled-components";
 import CompanyPreview from "./CompanyPreview";
+import { IStore } from "src/store/interfaces/store.interface";
+import { useSelector } from "react-redux";
 
 export default function CompanyContainer() {
-  const companies = [
-    {
-      id: 1,
-      name: "Накормим.бай",
-      description: "Доставка 5 руб. Бесплатно от 20 руб.",
-      deliveryInfo: {
-        minTime: 50,
-        maxTime: 90,
-        minPrice: 14,
-        deliveryPrice: null,
-      },
-      reviewsInfo: {
-        score: 4.3,
-        count: 114,
-      },
-      productTypeRange: [
-        {
-          id: 1,
-          name: "пицца",
-        },
-        {
-          id: 2,
-          name: "шаурма",
-        },
-        {
-          id: 4,
-          name: "бургеры",
-        },
-      ],
-      location: "витебск",
-      paymentMethods: ["наличными", "картой курьеру"],
-    },
-    {
-      id: 2,
-      name: "Дом папочки. Пироги",
-      description: "Доставка 4 руб. Бесплатно от 30 руб.",
-      deliveryInfo: {
-        minTime: 40,
-        maxTime: 60,
-        minPrice: 18,
-        deliveryPrice: 7,
-      },
-      reviewsInfo: {
-        score: 4.8,
-        count: 67,
-      },
-      productTypeRange: [
-        {
-          id: 1,
-          name: "пицца",
-        },
-        {
-          id: 5,
-          name: "супы",
-        },
-        {
-          id: 8,
-          name: "салаты",
-        },
-      ],
-      location: "витебск",
-      paymentMethods: ["наличными", "картой онлайн"],
-    },
-    {
-      id: 3,
-      name: "ОкПирог",
-      description: "Доставка 5 руб. Бесплатно от 40 руб.",
-      deliveryInfo: {
-        minTime: 50,
-        maxTime: 70,
-        minPrice: 20,
-        deliveryPrice: 5,
-      },
-      reviewsInfo: {
-        score: 4.5,
-        count: 31,
-      },
-      productTypeRange: [
-        {
-          id: 2,
-          name: "шаурма",
-        },
-        {
-          id: 3,
-          name: "суши",
-        },
-        {
-          id: 6,
-          name: "горячие блюда",
-        },
-      ],
-      location: "минск",
-      paymentMethods: ["наличными", "картой курьеру", "картой онлайн"],
-    },
-    {
-      id: 4,
-      name: "Чебурек.Врот",
-      description: "Доставка 5 руб. Бесплатно от 40 руб.",
-      deliveryInfo: {
-        minTime: 50,
-        maxTime: 70,
-        minPrice: 20,
-        deliveryPrice: 5,
-      },
-      reviewsInfo: {
-        score: 3.7,
-        count: 31,
-      },
-      productTypeRange: [
-        {
-          id: 1,
-          name: "чебурек",
-        },
-      ],
-      location: "минск",
-      paymentMethods: ["наличными", "картой курьеру", "картой онлайн"],
-    },
-    {
-      id: 5,
-      name: "KoкПирог",
-      description: "Доставка 5 руб. Бесплатно от 40 руб.",
-      deliveryInfo: {
-        minTime: 50,
-        maxTime: 70,
-        minPrice: 20,
-        deliveryPrice: 5,
-      },
-      reviewsInfo: {
-        score: 4.5,
-        count: 31,
-      },
-      productTypeRange: [
-        {
-          id: 2,
-          name: "шаурма",
-        },
-        {
-          id: 3,
-          name: "суши",
-        },
-        {
-          id: 6,
-          name: "горячие блюда",
-        },
-      ],
-      location: "минск",
-      paymentMethods: ["наличными", "картой курьеру", "картой онлайн"],
-    },
-  ];
+  const companies = useSelector((store: IStore) => store.companies.data);
+  const selectedProductTypeId = useSelector(
+    (store: IStore) => store.filters.selectedProductTypeId
+  );
+  const selectedPaymentMethods = useSelector(
+    (store: IStore) => store.filters.selectedPaymentMethods
+  );
 
   return (
     <Wrapper>
-      {companies.map((company) => (
-        <CompanyPreview key={company.id} company={company} />
-      ))}
+      {companies
+        .filter((company) => {
+          if (selectedProductTypeId === -1) return true;
+          return company.productTypeRange
+            .map((type) => type.id)
+            .includes(selectedProductTypeId);
+        })
+        .filter((company) => {
+          let suitable = false;
+          const companyMethods = company.paymentMethods.map(
+            (method) => method.id
+          );
+
+          companyMethods.forEach((method) => {
+            if (selectedPaymentMethods.includes(method)) {
+              suitable = true;
+            }
+          });
+
+          return suitable;
+        })
+        .map((company) => (
+          <CompanyPreview key={company.id} company={company} />
+        ))}
     </Wrapper>
   );
 }

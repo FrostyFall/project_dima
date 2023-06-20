@@ -1,46 +1,37 @@
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { IStore } from "src/store/interfaces/store.interface";
+import { setSelectedProductTypeId } from "src/store/actions";
 
 export default function Filters() {
-  const filters = [
-    {
-      id: 1,
-      name: "пицца",
-    },
-    {
-      id: 2,
-      name: "шаурма",
-    },
-    {
-      id: 3,
-      name: "суши",
-    },
-    {
-      id: 4,
-      name: "бургеры",
-    },
-    {
-      id: 5,
-      name: "супы",
-    },
-    {
-      id: 6,
-      name: "горячие блюда",
-    },
-    {
-      id: 7,
-      name: "шашлык",
-    },
-    {
-      id: 8,
-      name: "салаты",
-    },
-  ];
+  const productTypes = useSelector((store: IStore) => store.productTypes.data);
+  const selectedProductTypeId = useSelector(
+    (store: IStore) => store.filters.selectedProductTypeId
+  );
+  const dispatch = useDispatch();
+
+  const selectHandler = (id: number) => {
+    dispatch(setSelectedProductTypeId(id));
+  };
 
   return (
     <Wrapper>
-      <Button className="active">Все доставки</Button>
-      {filters.map((filter) => (
-        <Button key={filter.id}>{filter.name}</Button>
+      <Button
+        onClick={() => selectHandler(-1)}
+        className={selectedProductTypeId === -1 ? "active" : ""}
+        type='button'
+      >
+        Все доставки
+      </Button>
+      {productTypes.map((productType) => (
+        <Button
+          onClick={() => selectHandler(productType.id)}
+          className={selectedProductTypeId === productType.id ? "active" : ""}
+          key={productType.id}
+          type='button'
+        >
+          {productType.nameRu}
+        </Button>
       ))}
     </Wrapper>
   );
@@ -54,7 +45,6 @@ const Wrapper = styled.header`
   font-size: 1.25rem;
   transform: translateX(-0.4em);
 `;
-
 const Button = styled.button`
   background: #fff;
   border: none;
@@ -88,7 +78,6 @@ const Button = styled.button`
     height: 2px;
     width: calc(100% - 1em);
     opacity: 0;
-    transition: opacity 0.3s ease-out;
   }
 
   &:hover::after {
