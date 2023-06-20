@@ -77,7 +77,7 @@ export default function LoginModal({
             />
             <ErrorMessage>{errors.password?.message}</ErrorMessage>
           </div>
-          <Submit type="submit" placeholder="Войти" />
+          <Submit type="submit">Войти</Submit>
           <div className="container center">
             <button className="container__btn">Восстановить пароль</button>
             <button
@@ -185,7 +185,7 @@ const ModalForm = styled.form`
     }
   }
 `;
-const Submit = styled.input`
+const Submit = styled.button`
   font-size: 30px;
   border: none;
   color: #fff;

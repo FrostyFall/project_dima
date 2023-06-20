@@ -108,7 +108,7 @@ export default function RegisterModal({
             />
             <ErrorMessage>{errors.passwordConfirm?.message}</ErrorMessage>
           </div>
-          <Submit type="submit" placeholder="Войти" />
+          <Submit type="submit">Зарегистрироваться</Submit>
           <div className="container center">
             <button
               className="container__btn"
@@ -218,8 +218,8 @@ const ModalForm = styled.form`
     }
   }
 `;
-const Submit = styled.input`
-  font-size: 30px;
+const Submit = styled.button`
+  font-size: 20px;
   border: none;
   color: #fff;
   background: #0093d1;
@@ -234,7 +234,7 @@ const Submit = styled.input`
   @media (max-width: 550px) {
     width: 150px;
     height: 40px;
-    font-size: 20px;
+    font-size: 13px;
   }
 `;
 const Input = styled.input`

@@ -8,7 +8,7 @@ export default function Cart() {
     <Wrapper>
       <Main>
         <Header>
-          <h2 className='pcart__title'>Мой заказ</h2>
+          <h2 className="pcart__title">Мой заказ</h2>
           {!isCartEmpty && (
             <ResetBtn>
               <SvgWrapper>
@@ -18,9 +18,78 @@ export default function Cart() {
           )}
         </Header>
         {!isCartEmpty ? (
-          <Content className='pcart__content'>Hui</Content>
+          <Content className="pcart__content">
+            <Product>
+              <div className="product__container">
+                <p className="product__title">Пицца с остреньким перцем</p>
+                <p className="product__weight">600г</p>
+              </div>
+              <p className="product__count">1</p>
+              <p className="product__price">15 р.</p>
+            </Product>
+            <Product>
+              <div className="product__container">
+                <p className="product__title">
+                  Сырная пицца с хрустящей корочкой
+                </p>
+                <p className="product__weight">400г</p>
+              </div>
+              <p className="product__count">1</p>
+              <p className="product__price">9 р.</p>
+            </Product>
+            <Product>
+              <div className="product__container">
+                <p className="product__title">
+                  Королевская пицца с лобстером и крабовыми палочками
+                </p>
+                <p className="product__weight">1500г</p>
+              </div>
+              <p className="product__count">1</p>
+              <p className="product__price">100 р.</p>
+            </Product>
+            <Product>
+              <div className="product__container">
+                <p className="product__title">
+                  Королевская пицца с лобстером и крабовыми палочками
+                </p>
+                <p className="product__weight">1500г</p>
+              </div>
+              <p className="product__count">1</p>
+              <p className="product__price">100 р.</p>
+            </Product>
+            <Product>
+              <div className="product__container">
+                <p className="product__title">
+                  Королевская пицца с лобстером и крабовыми палочками
+                </p>
+                <p className="product__weight">1500г</p>
+              </div>
+              <p className="product__count">1</p>
+              <p className="product__price">100 р.</p>
+            </Product>
+            <Product>
+              <div className="product__container">
+                <p className="product__title">
+                  Королевская пицца с лобстером и крабовыми палочками
+                </p>
+                <p className="product__weight">1500г</p>
+              </div>
+              <p className="product__count">1</p>
+              <p className="product__price">100 р.</p>
+            </Product>
+            <Product>
+              <div className="product__container">
+                <p className="product__title">
+                  Королевская пицца с лобстером и крабовыми палочками
+                </p>
+                <p className="product__weight">1500г</p>
+              </div>
+              <p className="product__count">1</p>
+              <p className="product__price">100 р.</p>
+            </Product>
+          </Content>
         ) : (
-          <span className='pcart__no-items'>
+          <span className="pcart__no-items">
             Выберите блюда и добавьте их к заказу
           </span>
         )}
@@ -29,7 +98,7 @@ export default function Cart() {
         <Footer>
           <FooterInfo>
             <span>Итого</span>
-            <span className='pcart__summary-price'>21,50 р.</span>
+            <span className="pcart__summary-price">124 р.</span>
           </FooterInfo>
           <CTAButton>Оформить заказ</CTAButton>
         </Footer>
@@ -75,7 +144,46 @@ const Header = styled.header`
   }
 `;
 const Main = styled.div``;
-const Content = styled.div``;
+const Content = styled.div`
+  height: 76vh;
+  overflow-y: scroll;
+`;
+const Product = styled.div`
+  display: flex;
+  margin: 20px 0;
+
+  .product__container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 150px;
+    width: 100%;
+  }
+  .product__title {
+    font-size: 15px;
+  }
+  .product__weight {
+    font-size: 15px;
+    font-weight: 400;
+    opacity: 0.5;
+    margin-top: 5px;
+  }
+  .product__count {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 15px;
+    max-width: 20px;
+    width: 100%;
+  }
+  .product__price {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 15px;
+    font-weight: bold;
+    max-width: 60px;
+    width: 100%;
+  }
+`;
 const SvgWrapper = styled.div`
   position: relative;
   width: 1.3rem;
@@ -89,7 +197,9 @@ const ResetBtn = styled.button`
   align-items: center;
   cursor: pointer;
 `;
-const Footer = styled.footer``;
+const Footer = styled.footer`
+  margin-top: 20px;
+`;
 const FooterInfo = styled.div`
   display: flex;
   justify-content: space-between;
