@@ -49,7 +49,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  column-gap: 1rem;
+  column-gap: 1.5rem;
 
   .company-content {
     width: 100%;
@@ -74,6 +74,9 @@ const Wrapper = styled.div`
 `;
 const CartWrapper = styled.div`
   padding-top: 1rem;
+  position: sticky;
+  top: 0;
+  bottom: 0;
 `;
 const H2 = styled.h2`
   color: black;
