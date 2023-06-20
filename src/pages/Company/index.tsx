@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Cart from "./Cart";
-import ProductModal from "./ProductModal";
+import ProductTypesContainer from "./ProductTypesContainer";
 // import CompanyContainer from "./CompanyContainer";
 // import FilterContainer from "./FilterContainer";
 
@@ -11,20 +11,20 @@ export default function Company() {
 
   return (
     <Wrapper>
-      <div className="company-content">
-        <div className="company-info">
-          <div className="company-info__header">
+      <div className='company-content'>
+        <div className='company-info'>
+          <div className='company-info__header'>
             <H2>Pizza Planet</H2>
             <DeliveryInfoWrapper>
               <DeliveryInfo>От 14 руб.</DeliveryInfo>
               <DeliveryInfo>Доставка бесплатная</DeliveryInfo>
             </DeliveryInfoWrapper>
           </div>
-          <div className="company-info__footer">
+          <div className='company-info__footer'>
             <TypesNav>
               <TypesList>
                 <TypesItem>
-                  <a href="">Пиццы</a>
+                  <a href=''>Пиццы</a>
                 </TypesItem>
                 <TypesItem>Комбо</TypesItem>
                 <TypesItem>Паста</TypesItem>
@@ -33,9 +33,9 @@ export default function Company() {
             </TypesNav>
           </div>
         </div>
-        <div className="company-products">
-          {/* йобаный товар сюда */}
-          <ProductModal />
+
+        <div className='company-products'>
+          <ProductTypesContainer />
         </div>
       </div>
       <CartWrapper>
@@ -46,19 +46,20 @@ export default function Company() {
 }
 
 const Wrapper = styled.div`
-  padding: 2.5rem 0;
+  padding: 1.5rem 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  column-gap: 1rem;
+  column-gap: 1.5rem;
 
   .company-content {
     width: 100%;
   }
 
   .company-info {
-    border-bottom: 1px solid #eeeeee;
-    padding-bottom: 2rem;
+    border-bottom: 2px solid #eeeeee;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .company-info__header {
@@ -66,9 +67,17 @@ const Wrapper = styled.div`
     align-items: center;
     margin-bottom: 0.5rem;
   }
+
+  .company-info__footer {
+    position: sticky;
+    top: 0;
+  }
 `;
 const CartWrapper = styled.div`
   padding-top: 1rem;
+  position: sticky;
+  top: 0;
+  bottom: 0;
 `;
 const H2 = styled.h2`
   color: black;
@@ -87,6 +96,8 @@ const DeliveryInfoWrapper = styled.div`
 `;
 const TypesNav = styled.nav`
   width: 100%;
+  position: sticky;
+  top: 0;
 `;
 const TypesList = styled.ul`
   display: flex;

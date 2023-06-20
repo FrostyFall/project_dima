@@ -38,8 +38,8 @@ export default function Header({ setActive }: HeaderProps) {
 
 const Wrapper = styled.header`
   color: #000;
-  height: 159px;
-  margin-bottom: 10px;
+  // height: 159px;
+  // margin-bottom: 10px;
 
   .container {
     display: flex;
