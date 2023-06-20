@@ -1,3 +1,152 @@
+import styled from "styled-components";
+import { useState } from "react";
+
 export default function ProductModal() {
-  return <div>ProductModal</div>;
+  const [count, setCount] = useState(1);
+  function increment() {
+    if (count < 100) setCount(count + 1);
+  }
+  function decrement() {
+    if (count > 1) setCount(count - 1);
+  }
+
+  return (
+    <Modal>
+      <ModalContent>
+        <button className="closeBtn">X</button>
+        <img
+          className="img"
+          src="https://i1.sndcdn.com/artworks-000635780677-yhmbpw-t500x500.jpg"
+        />
+        <Wrapper>
+          <ContentWrapper>
+            <div className="container">
+              <p className="product__title">Билли Херрингтон</p>
+              <p className="product__price">15 p.</p>
+            </div>
+            <p className="product__weight">109 кг</p>
+            <p className="product__ingredients">
+              Два яйца, банан, секретный соус
+            </p>
+          </ContentWrapper>
+          <ButtonsWrapper>
+            <button className="btn minus" onClick={() => decrement()}>
+              -
+            </button>
+            <p className="count">{count}</p>
+            <button className="btn plus" onClick={() => increment()}>
+              +
+            </button>
+          </ButtonsWrapper>
+        </Wrapper>
+      </ModalContent>
+    </Modal>
+  );
 }
+
+const Modal = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+`;
+const ModalContent = styled.div`
+  position: relative;
+  width: 400px;
+  height: 550px;
+  background-color: #fff;
+  border-radius: 25px;
+
+  .closeBtn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 0 25px 0 0;
+    transition: 0.5s ease;
+    right: 0;
+
+    &:hover {
+      background-color: red;
+      color: #fff;
+      transition: 0.5s ease;
+    }
+  }
+  .img {
+    width: 100%;
+    height: 250px;
+    border-radius: 25px 25px 0 0;
+  }
+`;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 300px;
+  width: 100%;
+  padding: 30px 30px 50px;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .product__title {
+    font-size: 16px;
+  }
+  .product__weight {
+    font-size: 16px;
+    opacity: 0.5;
+    color: gray;
+    margin-bottom: 20px;
+  }
+  .product__price {
+    font-size: 20px;
+  }
+  .product__ingredients {
+    font-size: 16px;
+    color: gray;
+  }
+`;
+const ContentWrapper = styled.div``;
+const ButtonsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+
+  .btn {
+    width: 36px;
+    height: 36px;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    transition: 0.5s ease;
+
+    &:hover {
+      background-color: #000;
+      color: #fff;
+      transition: 0.5s ease;
+    }
+  }
+
+  .plus {
+  }
+  .minus {
+  }
+  .count {
+  }
+`;

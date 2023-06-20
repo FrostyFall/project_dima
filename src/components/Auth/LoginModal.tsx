@@ -105,6 +105,7 @@ const Modal = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 `;
 const ModalForm = styled.form`
   width: 450px;
