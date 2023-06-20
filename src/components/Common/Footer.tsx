@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function Footer() {
   return (
     <Wrapper>
-      <Container className='main-container'>
+      <Container className="main-container">
         <FooterContent>
           Доставка пиццы, шаурмы, суши, бургеров, супов, горячих блюд, шашлыка
         </FooterContent>
@@ -26,7 +26,11 @@ const Wrapper = styled.footer`
 `;
 const FooterContent = styled.p`
   font-size: 15px;
-  margin: 130px 0 90px 0;
+  margin: 130px 0 90px;
+
+  @media (max-width: 600px) {
+    margin: 130px 0 50px;
+  }
 `;
 const FooterCities = styled.p`
   font-size: 13px;
@@ -38,4 +42,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  padding: 0 20px 20px;
 `;

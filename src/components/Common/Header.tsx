@@ -12,22 +12,24 @@ export default function Header({ setActive }: HeaderProps) {
   const navigate = useNavigate();
 
   return (
-    <Wrapper className='main-container'>
-      <div className='container'>
+    <Wrapper className="main-container">
+      <div className="container">
         <HeaderLocation>Витебск</HeaderLocation>
         <HeaderPhone>+375 (29) 123-45-67</HeaderPhone>
       </div>
-      <div className='container'>
+      <div className="container">
         <LogoWrapper onClick={() => navigate("/")}>
           <LogoIcon />
         </LogoWrapper>
-        <div className='container_search'>
-          <HeaderSearchField placeholder='Поиск блюд и ресторанов' />
+        <div className="container_search">
+          <HeaderSearchField placeholder="Поиск блюд и ресторанов" />
           <HeaderSearchButton>
             <SearchIcon />
           </HeaderSearchButton>
         </div>
-        <HeaderLogin onClick={() => setActive(true)}>Войти</HeaderLogin>
+        <HeaderContainer>
+          <HeaderLogin onClick={() => setActive(true)}>Войти</HeaderLogin>
+        </HeaderContainer>
       </div>
       <hr />
     </Wrapper>
@@ -49,6 +51,9 @@ const Wrapper = styled.header`
     display: flex;
     justify-content: start;
     flex-flow: nowrap row;
+    width: 100%;
+    max-width: 775px;
+    margin: 0 20px;
   }
 
   hr {
@@ -66,15 +71,21 @@ const LogoWrapper = styled.div`
   width: 148px;
   height: 87px;
   cursor: pointer;
+
+  svg {
+    min-width: 148px;
+    min-height: 87px;
+  }
 `;
 const HeaderSearchField = styled.input`
-  width: 739px;
+  max-width: 739px;
+  width: 100%;
   height: 35px;
   border: none;
   border-radius: 4px 0 0 4px;
   background: #f3f3f3;
   padding: 7px 0 8px 13px;
-  margin-left: 80px;
+
   &:focus {
     outline: none;
   }
@@ -97,11 +108,17 @@ const HeaderSearchButton = styled.button`
 const HeaderLogin = styled.button`
   background: none;
   border: none;
-  margin-right: 15px;
   font-size: 17px;
   cursor: pointer;
+  text-align: center;
 
   &:hover {
     font-weight: bold;
   }
+`;
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  height: 35px;
 `;
