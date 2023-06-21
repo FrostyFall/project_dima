@@ -9,19 +9,27 @@ import { resetSelectedCompany, setSelectedCompany } from "src/store/actions";
 import { IStore } from "src/store/interfaces/store.interface";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { HashLink } from "react-router-hash-link";
+import ProductModal from "./ProductModal";
 
 export default function Company() {
+  const isModalOpen = useSelector(
+    (state: IStore) => state.modals.isProductModalOpen
+  );
   const selectedCompany = useSelector(
     (state: IStore) => state.companies.selectedCompany
+  );
+  const productModalData = useSelector(
+    (state: IStore) => state.modals.productModalData
   );
   const dispatch = useDispatch();
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
 
   return (
     <Wrapper>
-      <div className="company-content">
-        <div className="company-info">
-          <div className="company-info__header">
+      <div className='company-content'>
+        <div className='company-info'>
+          <div className='company-info__header'>
             <H2>{selectedCompany?.name}</H2>
             <DeliveryInfoWrapper>
               <DeliveryInfo>
@@ -35,12 +43,14 @@ export default function Company() {
               </DeliveryInfo>
             </DeliveryInfoWrapper>
           </div>
-          <div className="company-info__footer">
+          <div className='company-info__footer'>
             <TypesNav>
               <TypesList>
                 {selectedCompany?.productTypeRange.map((type) => (
-                  <TypesItem>
-                    <a href={`#${type.id}-prod-type`}>{type.nameRu}</a>
+                  <TypesItem key={type.id}>
+                    <HashLink to={`#${type.id}-prod-type`}>
+                      {type.nameRu}
+                    </HashLink>
                   </TypesItem>
                 ))}
               </TypesList>
@@ -48,7 +58,7 @@ export default function Company() {
           </div>
         </div>
 
-        <div className="company-products">
+        <div className='company-products'>
           <ProductTypesContainer />
         </div>
       </div>
@@ -58,11 +68,8 @@ export default function Company() {
           setIsModalActive={setIsModalActive}
         />
       </CartWrapper>
-      {isModalActive && (
-        <CartModal
-          setIsModalActive={setIsModalActive}
-        />
-      )}
+      {isModalActive && <CartModal setIsModalActive={setIsModalActive} />}
+      {isModalOpen && <ProductModal product={productModalData} />}
     </Wrapper>
   );
 }

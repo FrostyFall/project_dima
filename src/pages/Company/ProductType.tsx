@@ -26,11 +26,11 @@ export default function ProductType({ type, companyId }: Props) {
   }, [companyId, type]);
 
   return (
-    <Wrapper>
+    <Wrapper id={`${type.id}-prod-type`}>
       <h2 className='product__type-name'>{type.nameRu}</h2>
       <div className='product__previews-container'>
         {products.map((product) => (
-          <ProductPreview product={product} />
+          <ProductPreview key={product.id} product={product} />
         ))}
         {products.length === 0 && <span>Нет товаров в данной категории</span>}
       </div>

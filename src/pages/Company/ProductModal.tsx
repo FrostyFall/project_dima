@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { IProduct } from "src/interfaces/product.interface";
+import { useSelector, useDispatch } from "react-redux";
+import { IStore } from "src/store/interfaces/store.interface";
+import { toggleProductModal } from "src/store/actions";
 
 interface Props {
-  product: IProduct;
-  setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+  product: IProduct | null;
 }
 
-export default function ProductModal({ product, setIsModalActive }: Props) {
+export default function ProductModal({ product }: Props) {
+  const dispatch = useDispatch();
   const [count, setCount] = useState(1);
   function increment() {
     if (count < 100) setCount(count + 1);
@@ -17,31 +20,34 @@ export default function ProductModal({ product, setIsModalActive }: Props) {
   }
 
   return (
-    <Modal onClick={() => setIsModalActive(false)}>
+    <Modal onClick={() => dispatch(toggleProductModal(false))}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        <button onClick={() => setIsModalActive(false)} className="closeBtn">
+        <button
+          onClick={() => dispatch(toggleProductModal(false))}
+          className='closeBtn'
+        >
           X
         </button>
         <img
-          className="img"
-          src="https://i1.sndcdn.com/artworks-000635780677-yhmbpw-t500x500.jpg"
-          alt="Product"
+          className='img'
+          src='https://i1.sndcdn.com/artworks-000635780677-yhmbpw-t500x500.jpg'
+          alt='Product'
         />
         <Wrapper>
           <ContentWrapper>
-            <div className="container">
-              <p className="product__title">{product.name}</p>
-              <p className="product__price">{product.price}</p>
+            <div className='container'>
+              <p className='product__title'>{product?.name}</p>
+              <p className='product__price'>{product?.price}</p>
             </div>
-            <p className="product__weight">{product.weight}</p>
-            <p className="product__ingredients">{product.ingredientsRange}</p>
+            <p className='product__weight'>{product?.weight}</p>
+            <p className='product__ingredients'>{product?.ingredientsRange}</p>
           </ContentWrapper>
           <ButtonsWrapper>
-            <button className="btn minus" onClick={() => decrement()}>
+            <button className='btn minus' onClick={() => decrement()}>
               -
             </button>
-            <p className="count">{count}</p>
-            <button className="btn plus" onClick={() => increment()}>
+            <p className='count'>{count}</p>
+            <button className='btn plus' onClick={() => increment()}>
               +
             </button>
           </ButtonsWrapper>
@@ -53,15 +59,15 @@ export default function ProductModal({ product, setIsModalActive }: Props) {
 
 const Modal = styled.div`
   position: fixed;
-  width: 100vw;
-  height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 100;
 `;
 const ModalContent = styled.div`
   position: relative;

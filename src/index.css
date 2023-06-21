@@ -16,6 +16,10 @@
   font-size: 16px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Inter", Arial, Helvetica, sans-serif;
   line-height: 1.4;

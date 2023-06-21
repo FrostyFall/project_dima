@@ -4,7 +4,8 @@ import modalsSlice from "./slices/modals.slice";
 import paymentMethodsSlice from "./slices/payment-methods.slice";
 import productTypesSlice from "./slices/product-types.slice";
 
-export const { toggleFiltersModal } = modalsSlice.actions;
+export const { toggleFiltersModal, toggleProductModal, setProductData } =
+  modalsSlice.actions;
 export const {
   setCompaniesData,
   setCompaniesInitialData,

@@ -11,7 +11,7 @@ export default function ProductTypesContainer() {
   return (
     <Wrapper>
       {selectedCompany?.productTypeRange?.map((type) => (
-        <ProductType companyId={selectedCompany.id} type={type} />
+        <ProductType key={type.id} companyId={selectedCompany.id} type={type} />
       ))}
     </Wrapper>
   );

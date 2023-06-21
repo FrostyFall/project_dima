@@ -1,56 +1,67 @@
 import { IProduct } from "src/interfaces/product.interface";
 import styled from "styled-components";
 import ProductModal from "./ProductModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setProductData, toggleProductModal } from "src/store/actions";
+import { IStore } from "src/store/interfaces/store.interface";
 
 interface Props {
   product: IProduct;
 }
 
 export default function ProductPreview({ product }: Props) {
-  const [isModalActive, setIsModalActive] = useState<boolean>(false);
+  const isModalOpen = useSelector(
+    (state: IStore) => state.modals.isProductModalOpen
+  );
+  const dispatch = useDispatch();
 
   return (
-    <Figure onClick={() => setIsModalActive(true)}>
+    <Figure>
       <img
-        src="https://s5o.ru/storage/simple/cyber/edt/bb/f9/38/f5/cyberef95b3ecf51.jpg"
-        alt="Product"
+        src='https://s5o.ru/storage/simple/cyber/edt/bb/f9/38/f5/cyberef95b3ecf51.jpg'
+        alt='Product'
       />
       <Figcaption>
         <ReviewsWrapper>
-          <span className="product__reviews-score">
+          <span className='product__reviews-score'>
             {product.reviewsInfo.score}
           </span>
-          <span className="product__reviews-count">
+          <span className='product__reviews-count'>
             {product.reviewsInfo.count} отзыва
           </span>
         </ReviewsWrapper>
         <InfoWrapper>
-          <div className="product__left-info">
-            <h3 className="product__name product-primary-info">
+          <div className='product__left-info'>
+            <h3 className='product__name product-primary-info'>
               {product.name}
             </h3>
-            <span className="product__ingredients product-secondary-info">
+            <span className='product__ingredients product-secondary-info'>
               {product.ingredientsRange.join(", ")}
             </span>
           </div>
-          <div className="product__right-info">
-            <div className="product__price product-primary-info">
+          <div className='product__right-info'>
+            <div className='product__price product-primary-info'>
               {product.price} р.
             </div>
-            <div className="product__weight product-secondary-info">
+            <div className='product__weight product-secondary-info'>
               {product.weight} г
             </div>
-            <div className="product__size product-secondary-info">
+            <div className='product__size product-secondary-info'>
               {product.size} см
             </div>
           </div>
         </InfoWrapper>
-        <CTAButton type="button">Добавить в корзину</CTAButton>
+        <CTAButton
+          type='button'
+          onClick={() => {
+            dispatch(setProductData(product));
+            dispatch(toggleProductModal(!isModalOpen));
+          }}
+        >
+          Добавить в корзину
+        </CTAButton>
       </Figcaption>
-      {isModalActive && (
-        <ProductModal product={product} setIsModalActive={setIsModalActive} />
-      )}
     </Figure>
   );
 }
