@@ -1,4 +1,5 @@
 import { IAuthState } from "./auth.interface";
+import { ICartState } from "./cart.interface";
 import { ICompaniesState } from "./companies.interface";
 import { IFiltersState } from "./filters.interface";
 import { IModalsState } from "./modals.interface";
@@ -12,4 +13,5 @@ export interface IStore {
   filters: IFiltersState;
   paymentMethods: IPaymentMethodsState;
   auth: IAuthState;
+  cart: ICartState;
 }

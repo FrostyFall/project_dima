@@ -5,6 +5,7 @@ import productTypesSlice from "./slices/product-types.slice";
 import filtersSlice from "./slices/filters.slice";
 import paymentMethodsSlice from "./slices/payment-methods.slice";
 import authSlice from "./slices/auth.slice";
+import cartSlice from "./slices/cart.interface";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     filters: filtersSlice.reducer,
     paymentMethods: paymentMethodsSlice.reducer,
     auth: authSlice.reducer,
+    cart: cartSlice.reducer,
   },
 });
 

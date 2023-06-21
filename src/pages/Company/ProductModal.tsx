@@ -3,7 +3,7 @@ import { useState } from "react";
 import { IProduct } from "src/interfaces/product.interface";
 import { useSelector, useDispatch } from "react-redux";
 import { IStore } from "src/store/interfaces/store.interface";
-import { toggleProductModal } from "src/store/actions";
+import { addToCart, toggleProductModal } from "src/store/actions";
 
 interface Props {
   product: IProduct | null;
@@ -17,6 +17,12 @@ export default function ProductModal({ product }: Props) {
   }
   function decrement() {
     if (count > 1) setCount(count - 1);
+  }
+  function onAddToCart() {
+    if (product !== null) {
+      dispatch(addToCart({ data: product, amount: count }));
+      dispatch(toggleProductModal(false));
+    }
   }
 
   return (
@@ -33,22 +39,27 @@ export default function ProductModal({ product }: Props) {
           <ContentWrapper>
             <div className='container'>
               <p className='product__title'>{product?.name}</p>
-              <p className='product__price'>{product?.price}</p>
+              <p className='product__price'>{product?.price} р.</p>
             </div>
             <p className='product__weight'>{product?.weight}</p>
             <p className='product__ingredients'>
               {product?.ingredientsRange.join(", ")}
             </p>
           </ContentWrapper>
-          <ButtonsWrapper>
-            <button className='btn minus' onClick={() => decrement()}>
-              -
-            </button>
-            <p className='count'>{count}</p>
-            <button className='btn plus' onClick={() => increment()}>
-              +
-            </button>
-          </ButtonsWrapper>
+          <Footer>
+            <ButtonsWrapper>
+              <button className='btn minus' onClick={() => decrement()}>
+                -
+              </button>
+              <p className='count'>{count}</p>
+              <button className='btn plus' onClick={() => increment()}>
+                +
+              </button>
+            </ButtonsWrapper>
+            <CTAButton type='button' onClick={onAddToCart}>
+              Добавить к заказу
+            </CTAButton>
+          </Footer>
         </Wrapper>
       </ModalContent>
     </Modal>
@@ -167,4 +178,23 @@ const ButtonsWrapper = styled.div`
   }
   .count {
   }
+`;
+const CTAButton = styled.button`
+  border: none;
+  background-color: rgba(49, 188, 107, 0.9);
+  font-size: 1.075em;
+  color: #fff;
+  border-radius: 4px;
+  padding: 0.6em 1.2em;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(49, 188, 107, 1);
+  }
+`;
+const Footer = styled.footer`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;

@@ -29,7 +29,7 @@ export default function CompanyPreview({ company }: Props) {
           </ReviewsWrapper>
           <span className='company__products-range'>
             {company.productTypeRange
-              .map((productType) => productType.name)
+              .map((productType) => productType.nameRu)
               .join(", ")}
           </span>
         </InfoWrapper>

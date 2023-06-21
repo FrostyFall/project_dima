@@ -1,112 +1,64 @@
 import styled from "styled-components";
 import { Close } from "../../static";
+import { useSelector, useDispatch } from "react-redux";
+import { IStore } from "src/store/interfaces/store.interface";
+import { resetCart } from "src/store/actions";
 
 type Props = {
   isModalActive: boolean;
   setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-// добавил тип пропс и сами пропсы в Cart
-// повесил на кнопку ОНКЛИК
-
-export default function Cart({ isModalActive, setIsModalActive }: Props) {
-  const isCartEmpty = false;
+export default function Cart({ setIsModalActive }: Props) {
+  const cartProducts = useSelector((state: IStore) => state.cart.products);
+  const dispatch = useDispatch();
 
   return (
     <Wrapper>
       <Main>
         <Header>
-          <h2 className="pcart__title">Мой заказ</h2>
-          {!isCartEmpty && (
-            <ResetBtn>
+          <h2 className='pcart__title'>Мой заказ</h2>
+          {cartProducts.length > 0 && (
+            <ResetBtn onClick={() => dispatch(resetCart())}>
               <SvgWrapper>
                 <Close />
               </SvgWrapper>
             </ResetBtn>
           )}
         </Header>
-        {!isCartEmpty ? (
-          <Content className="pcart__content">
-            <Product>
-              <div className="product__container">
-                <p className="product__title">Пицца с остреньким перцем</p>
-                <p className="product__weight">600г</p>
-              </div>
-              <p className="product__count">1</p>
-              <p className="product__price">15 р.</p>
-            </Product>
-            <Product>
-              <div className="product__container">
-                <p className="product__title">
-                  Сырная пицца с хрустящей корочкой
+        {cartProducts.length > 0 ? (
+          <Content className='pcart__content'>
+            {cartProducts.map((product) => (
+              <Product key={product.data.id}>
+                <div className='product__container'>
+                  <p className='product__title'>{product.data.name}</p>
+                  <p className='product__weight'>
+                    {product.data.weight} г / {product.data.size} см
+                  </p>
+                </div>
+                <p className='product__count'>{product.amount}</p>
+                <p className='product__price'>
+                  {product.amount * product.data.price} р.
                 </p>
-                <p className="product__weight">400г</p>
-              </div>
-              <p className="product__count">1</p>
-              <p className="product__price">9 р.</p>
-            </Product>
-            <Product>
-              <div className="product__container">
-                <p className="product__title">
-                  Королевская пицца с лобстером и крабовыми палочками
-                </p>
-                <p className="product__weight">1500г</p>
-              </div>
-              <p className="product__count">1</p>
-              <p className="product__price">100 р.</p>
-            </Product>
-            <Product>
-              <div className="product__container">
-                <p className="product__title">
-                  Королевская пицца с лобстером и крабовыми палочками
-                </p>
-                <p className="product__weight">1500г</p>
-              </div>
-              <p className="product__count">1</p>
-              <p className="product__price">100 р.</p>
-            </Product>
-            <Product>
-              <div className="product__container">
-                <p className="product__title">
-                  Королевская пицца с лобстером и крабовыми палочками
-                </p>
-                <p className="product__weight">1500г</p>
-              </div>
-              <p className="product__count">1</p>
-              <p className="product__price">100 р.</p>
-            </Product>
-            <Product>
-              <div className="product__container">
-                <p className="product__title">
-                  Королевская пицца с лобстером и крабовыми палочками
-                </p>
-                <p className="product__weight">1500г</p>
-              </div>
-              <p className="product__count">1</p>
-              <p className="product__price">100 р.</p>
-            </Product>
-            <Product>
-              <div className="product__container">
-                <p className="product__title">
-                  Королевская пицца с лобстером и крабовыми палочками
-                </p>
-                <p className="product__weight">1500г</p>
-              </div>
-              <p className="product__count">1</p>
-              <p className="product__price">100 р.</p>
-            </Product>
+              </Product>
+            ))}
           </Content>
         ) : (
-          <span className="pcart__no-items">
+          <span className='pcart__no-items'>
             Выберите блюда и добавьте их к заказу
           </span>
         )}
       </Main>
-      {!isCartEmpty && (
+      {cartProducts.length > 0 && (
         <Footer>
           <FooterInfo>
             <span>Итого</span>
-            <span className="pcart__summary-price">124 р.</span>
+            <span className='pcart__summary-price'>
+              {cartProducts.reduce((acc, value) => {
+                return acc + value.amount * value.data.price;
+              }, 0)}{" "}
+              р.
+            </span>
           </FooterInfo>
           <CTAButton onClick={() => setIsModalActive(true)}>
             Оформить заказ

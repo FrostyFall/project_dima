@@ -17,7 +17,12 @@ export default function ProductPreview({ product }: Props) {
   const dispatch = useDispatch();
 
   return (
-    <Figure>
+    <Figure
+      onClick={() => {
+        dispatch(setProductData(product));
+        dispatch(toggleProductModal(!isModalOpen));
+      }}
+    >
       <img src={product.imgUrl} alt='Product' />
       <Figcaption>
         <ReviewsWrapper>
@@ -49,15 +54,7 @@ export default function ProductPreview({ product }: Props) {
             </div>
           </div>
         </InfoWrapper>
-        <CTAButton
-          type='button'
-          onClick={() => {
-            dispatch(setProductData(product));
-            dispatch(toggleProductModal(!isModalOpen));
-          }}
-        >
-          Добавить в корзину
-        </CTAButton>
+        <CTAButton type='button'>Добавить в корзину</CTAButton>
       </Figcaption>
     </Figure>
   );

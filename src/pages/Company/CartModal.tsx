@@ -1,101 +1,70 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { IStore } from "src/store/interfaces/store.interface";
+import { resetCart } from "src/store/actions";
 
 type Props = {
   setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-// добавил тип пропс и сами пропсы в Cart
-// повесил ОНКЛИКИ на Modal, ModalContent, closeBtn, CTAbutton
-
 export default function CartModal({ setIsModalActive }: Props) {
+  const cartProducts = useSelector((state: IStore) => state.cart.products);
+  const selectedCompany = useSelector(
+    (state: IStore) => state.companies.selectedCompany
+  );
+  const dispatch = useDispatch();
+
   return (
     <Modal onClick={() => setIsModalActive(false)}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        <button onClick={() => setIsModalActive(false)} className="closeBtn">
+        <button onClick={() => setIsModalActive(false)} className='closeBtn'>
           X
         </button>
-        <p className="company__title">Pizza Planet</p>
+        <p className='company__title'>{selectedCompany?.name}</p>
         <Wrapper>
-          <Product>
-            <div className="product__container">
-              <p className="product__title">Пицца с остреньким перцем</p>
-              <p className="product__weight">600г</p>
-            </div>
-            <p className="product__count">1</p>
-            <p className="product__price">15 р.</p>
-          </Product>
-          <Product>
-            <div className="product__container">
-              <p className="product__title">
-                Сырная пицца с хрустящей корочкой
+          {cartProducts.map((product) => (
+            <Product key={product.data.id}>
+              <div className='product__container'>
+                <p className='product__title'>{product.data.name}</p>
+                <p className='product__weight'>
+                  {product.data.weight} г / {product.data.size} см
+                </p>
+              </div>
+              <p className='product__count'>{product.amount}</p>
+              <p className='product__price'>
+                {product.amount * product.data.price} р.
               </p>
-              <p className="product__weight">400г</p>
-            </div>
-            <p className="product__count">1</p>
-            <p className="product__price">9 р.</p>
-          </Product>
-          <Product>
-            <div className="product__container">
-              <p className="product__title">
-                Королевская пицца с лобстером и крабовыми палочками
-              </p>
-              <p className="product__weight">1500г</p>
-            </div>
-            <p className="product__count">1</p>
-            <p className="product__price">100 р.</p>
-          </Product>{" "}
-          <Product>
-            <div className="product__container">
-              <p className="product__title">Пицца с остреньким перцем</p>
-              <p className="product__weight">600г</p>
-            </div>
-            <p className="product__count">1</p>
-            <p className="product__price">15 р.</p>
-          </Product>
-          <Product>
-            <div className="product__container">
-              <p className="product__title">
-                Сырная пицца с хрустящей корочкой
-              </p>
-              <p className="product__weight">400г</p>
-            </div>
-            <p className="product__count">1</p>
-            <p className="product__price">9 р.</p>
-          </Product>
-          <Product>
-            <div className="product__container">
-              <p className="product__title">
-                Королевская пицца с лобстером и крабовыми палочками
-              </p>
-              <p className="product__weight">1500г</p>
-            </div>
-            <p className="product__count">1</p>
-            <p className="product__price">100 р.</p>
-          </Product>
+            </Product>
+          ))}
         </Wrapper>
         <form>
-          <div className="container">
-            <label htmlFor="address" className="text">
+          <div className='container'>
+            <label htmlFor='address' className='text'>
               Адрес доставки
             </label>
-            <Input id="address" />
+            <Input id='address' />
           </div>
-          <div className="container">
-            <label htmlFor="name" className="text">
+          <div className='container'>
+            <label htmlFor='name' className='text'>
               Ваше имя
             </label>
-            <Input id="name" />
+            <Input id='name' />
           </div>
 
-          <div className="container">
-            <label htmlFor="phone" className="text">
+          <div className='container'>
+            <label htmlFor='phone' className='text'>
               Ваш телефон
             </label>
-            <Input id="phone" type="phone" />
+            <Input id='phone' type='phone' />
           </div>
         </form>
-        <CTAButton onClick={() => setIsModalActive(false)}>
+        <CTAButton
+          onClick={() => {
+            dispatch(resetCart());
+            setIsModalActive(false);
+          }}
+        >
           Оформить заказ
         </CTAButton>
       </ModalContent>

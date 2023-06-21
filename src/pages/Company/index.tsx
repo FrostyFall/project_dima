@@ -5,7 +5,11 @@ import ProductTypesContainer from "./ProductTypesContainer";
 import CartModal from "./CartModal";
 import store from "../../store";
 import { ICompany } from "src/interfaces/company.interface";
-import { resetSelectedCompany, setSelectedCompany } from "src/store/actions";
+import {
+  resetCart,
+  resetSelectedCompany,
+  setSelectedCompany,
+} from "src/store/actions";
 import { IStore } from "src/store/interfaces/store.interface";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -24,6 +28,12 @@ export default function Company() {
   );
   const dispatch = useDispatch();
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetCart());
+    };
+  }, [dispatch]);
 
   return (
     <Wrapper>
