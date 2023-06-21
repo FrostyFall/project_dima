@@ -29,12 +29,6 @@ export default function Company() {
   const dispatch = useDispatch();
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
 
-  useEffect(() => {
-    return () => {
-      dispatch(resetCart());
-    };
-  }, [dispatch]);
-
   return (
     <Wrapper>
       <div className='company-content'>

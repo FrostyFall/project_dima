@@ -61,7 +61,7 @@ export default function CartModal({ setIsModalActive }: Props) {
         </form>
         <CTAButton
           onClick={() => {
-            dispatch(resetCart());
+            dispatch(resetCart({ companyId: selectedCompany?.id ?? -1 }));
             setIsModalActive(false);
           }}
         >

@@ -26,4 +26,4 @@ export const {
 } = filtersSlice.actions;
 export const { setPaymentMethodsData } = paymentMethodsSlice.actions;
 export const { setIsAuth } = authSlice.actions;
-export const { addToCart, resetCart } = cartSlice.actions;
+export const { addToCart, resetCart, setCart } = cartSlice.actions;

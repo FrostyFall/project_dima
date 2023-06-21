@@ -16,7 +16,9 @@ export const cartSlice = createSlice({
       { payload }: PayloadAction<{ data: IProduct; amount: number }>
     ) => {
       const foundProduct = state.products.find(
-        (product) => product.data.id === payload.data.id
+        (product) =>
+          product.data.id === payload.data.id &&
+          product.data.companyId === payload.data.companyId
       );
 
       if (foundProduct) {
@@ -30,10 +32,19 @@ export const cartSlice = createSlice({
 
       localStorage.setItem("cartProducts", JSON.stringify(state.products));
     },
-    resetCart: (state) => {
-      state.products = [];
+    resetCart: (state, { payload }: PayloadAction<{ companyId: number }>) => {
+      state.products = state.products.filter(
+        (product) => product.data.companyId !== payload.companyId
+      );
 
-      localStorage.removeItem("cartProducts");
+      localStorage.setItem("cartProducts", JSON.stringify(state.products));
+    },
+    setCart: (state) => {
+      const lcProducts = localStorage.getItem("cartProducts");
+      if (lcProducts) {
+        const lcProductsObj = JSON.parse(lcProducts);
+        state.products = lcProductsObj;
+      }
     },
   },
 });

@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { Close } from "../../static";
 import { useSelector, useDispatch } from "react-redux";
 import { IStore } from "src/store/interfaces/store.interface";
-import { resetCart } from "src/store/actions";
+import { resetCart, setCart } from "src/store/actions";
+import { useEffect } from "react";
 
 type Props = {
   isModalActive: boolean;
@@ -11,37 +12,56 @@ type Props = {
 
 export default function Cart({ setIsModalActive }: Props) {
   const cartProducts = useSelector((state: IStore) => state.cart.products);
+  const selectedCompany = useSelector(
+    (state: IStore) => state.companies.selectedCompany
+  );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setCart());
+  }, [dispatch]);
 
   return (
     <Wrapper>
       <Main>
         <Header>
           <h2 className='pcart__title'>Мой заказ</h2>
-          {cartProducts.length > 0 && (
-            <ResetBtn onClick={() => dispatch(resetCart())}>
+          {cartProducts.filter(
+            (product) => product.data.companyId === selectedCompany?.id
+          ).length > 0 && (
+            <ResetBtn
+              onClick={() =>
+                dispatch(resetCart({ companyId: selectedCompany?.id ?? -1 }))
+              }
+            >
               <SvgWrapper>
                 <Close />
               </SvgWrapper>
             </ResetBtn>
           )}
         </Header>
-        {cartProducts.length > 0 ? (
+        {cartProducts.filter(
+          (product) => product.data.companyId === selectedCompany?.id
+        ).length > 0 ? (
           <Content className='pcart__content'>
-            {cartProducts.map((product) => (
-              <Product key={product.data.id}>
-                <div className='product__container'>
-                  <p className='product__title'>{product.data.name}</p>
-                  <p className='product__weight'>
-                    {product.data.weight} г / {product.data.size} см
+            {cartProducts
+              .filter(
+                (product) => product.data.companyId === selectedCompany?.id
+              )
+              .map((product) => (
+                <Product key={product.data.id}>
+                  <div className='product__container'>
+                    <p className='product__title'>{product.data.name}</p>
+                    <p className='product__weight'>
+                      {product.data.weight} г / {product.data.size} см
+                    </p>
+                  </div>
+                  <p className='product__count'>{product.amount}</p>
+                  <p className='product__price'>
+                    {product.amount * product.data.price} р.
                   </p>
-                </div>
-                <p className='product__count'>{product.amount}</p>
-                <p className='product__price'>
-                  {product.amount * product.data.price} р.
-                </p>
-              </Product>
-            ))}
+                </Product>
+              ))}
           </Content>
         ) : (
           <span className='pcart__no-items'>
@@ -49,14 +69,20 @@ export default function Cart({ setIsModalActive }: Props) {
           </span>
         )}
       </Main>
-      {cartProducts.length > 0 && (
+      {cartProducts.filter(
+        (product) => product.data.companyId === selectedCompany?.id
+      ).length > 0 && (
         <Footer>
           <FooterInfo>
             <span>Итого</span>
             <span className='pcart__summary-price'>
-              {cartProducts.reduce((acc, value) => {
-                return acc + value.amount * value.data.price;
-              }, 0)}{" "}
+              {cartProducts
+                .filter(
+                  (product) => product.data.companyId === selectedCompany?.id
+                )
+                .reduce((acc, value) => {
+                  return acc + value.amount * value.data.price;
+                }, 0)}{" "}
               р.
             </span>
           </FooterInfo>
