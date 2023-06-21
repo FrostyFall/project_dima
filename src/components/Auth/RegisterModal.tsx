@@ -1,5 +1,7 @@
 import { useState, Dispatch, SetStateAction } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { setIsAuth } from "src/store/actions";
 import styled from "styled-components";
 
 type RegisterModalProps = {
@@ -28,10 +30,12 @@ export default function RegisterModal({
     handleSubmit,
     reset,
   } = useForm<IFormInput>();
+  const dispatch = useDispatch();
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+  const onSubmit: SubmitHandler<IFormInput> = (data, e) => {
+    e?.preventDefault();
     if (password === passwordConfirm) {
-      console.log(data);
+      dispatch(setIsAuth(true));
       reset({ email: "", password: "", passwordConfirm: "" });
       setPassword("");
       setPasswordConfirm("");
@@ -51,14 +55,14 @@ export default function RegisterModal({
       }}
     >
       <Wrapper>
-        <button className="closeBtn">X</button>
+        <button className='closeBtn'>X</button>
         <ModalForm
           onClick={(e) => e.stopPropagation()}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <p className="title">Регистрация</p>
-          <div className="container">
-            <label htmlFor="email" className="text">
+          <p className='title'>Регистрация</p>
+          <div className='container'>
+            <label htmlFor='email' className='text'>
               Почта
             </label>
             <Input
@@ -69,13 +73,13 @@ export default function RegisterModal({
                   message: "Неверный ввод",
                 },
               })}
-              id="email"
-              autoComplete="off"
+              id='email'
+              autoComplete='off'
             />
             <ErrorMessage>{errors.email?.message}</ErrorMessage>
           </div>
-          <div className="container">
-            <label htmlFor="password" className="text">
+          <div className='container'>
+            <label htmlFor='password' className='text'>
               Пароль
             </label>
             <Input
@@ -84,15 +88,15 @@ export default function RegisterModal({
                 minLength: { value: 8, message: "Минимум 8 знаков" },
                 maxLength: { value: 30, message: "Максимум 30 знаков" },
               })}
-              id="password"
-              autoComplete="off"
+              id='password'
+              autoComplete='off'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <ErrorMessage>{errors.password?.message}</ErrorMessage>
           </div>
-          <div className="container">
-            <label htmlFor="passwordConfirm" className="text">
+          <div className='container'>
+            <label htmlFor='passwordConfirm' className='text'>
               Подтвердить пароль
             </label>
             <Input
@@ -101,17 +105,17 @@ export default function RegisterModal({
                 minLength: { value: 8, message: "Минимум 8 знаков" },
                 maxLength: { value: 30, message: "Максимум 30 знаков" },
               })}
-              id="passwordConfirm"
-              autoComplete="off"
+              id='passwordConfirm'
+              autoComplete='off'
               value={passwordConfirm}
               onChange={(e) => setPasswordConfirm(e.target.value)}
             />
             <ErrorMessage>{errors.passwordConfirm?.message}</ErrorMessage>
           </div>
-          <Submit type="submit">Зарегистрироваться</Submit>
-          <div className="container center">
+          <Submit type='submit'>Зарегистрироваться</Submit>
+          <div className='container center'>
             <button
-              className="container__btn"
+              className='container__btn'
               onClick={() => {
                 reset({ email: "", password: "", passwordConfirm: "" });
                 setPassword("");

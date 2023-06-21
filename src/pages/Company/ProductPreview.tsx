@@ -18,10 +18,7 @@ export default function ProductPreview({ product }: Props) {
 
   return (
     <Figure>
-      <img
-        src='https://s5o.ru/storage/simple/cyber/edt/bb/f9/38/f5/cyberef95b3ecf51.jpg'
-        alt='Product'
-      />
+      <img src={product.imgUrl} alt='Product' />
       <Figcaption>
         <ReviewsWrapper>
           <span className='product__reviews-score'>
@@ -76,6 +73,7 @@ const Figure = styled.figure`
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     height: auto;
+    max-height: 250px;
     width: 100%;
     object-fit: cover;
   }

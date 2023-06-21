@@ -1,3 +1,4 @@
+import authSlice from "./slices/auth.slice";
 import companiesSlice from "./slices/companies.slice";
 import filtersSlice from "./slices/filters.slice";
 import modalsSlice from "./slices/modals.slice";
@@ -23,3 +24,4 @@ export const {
   setFullSelectedPaymentMethods,
 } = filtersSlice.actions;
 export const { setPaymentMethodsData } = paymentMethodsSlice.actions;
+export const { setIsAuth } = authSlice.actions;

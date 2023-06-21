@@ -14,4 +14,5 @@ export interface IProduct {
     count: number;
   };
   price: number;
+  imgUrl: string;
 }

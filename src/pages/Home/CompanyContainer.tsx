@@ -47,7 +47,7 @@ export default function CompanyContainer() {
           }
           return <CompanyPreview key={company.id} company={company} />;
         })}
-      {isEmpty && <div>Нет товаров</div>}
+      {isEmpty && <div>Нет компаний</div>}
     </Wrapper>
   );
 }

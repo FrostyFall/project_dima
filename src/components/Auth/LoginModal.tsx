@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { setIsAuth } from "src/store/actions";
 
 type LoginModalProps = {
   isActive: boolean;
@@ -24,9 +26,11 @@ export default function LoginModal({
     handleSubmit,
     reset,
   } = useForm<IFormInput>();
+  const dispatch = useDispatch();
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = (data, e) => {
+    e?.preventDefault();
+    dispatch(setIsAuth(true));
     reset({ email: "", password: "" });
     setActive(false);
   };
@@ -39,14 +43,14 @@ export default function LoginModal({
       }}
     >
       <Wrapper>
-        <button className="closeBtn">X</button>
+        <button className='closeBtn'>X</button>
         <ModalForm
           onClick={(e) => e.stopPropagation()}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <p className="title">Авторизация</p>
-          <div className="container">
-            <label htmlFor="email" className="text">
+          <p className='title'>Авторизация</p>
+          <div className='container'>
+            <label htmlFor='email' className='text'>
               Почта
             </label>
             <Input
@@ -57,13 +61,13 @@ export default function LoginModal({
                   message: "Неверный ввод",
                 },
               })}
-              id="email"
-              autoComplete="off"
+              id='email'
+              autoComplete='off'
             />
             <ErrorMessage>{errors.email?.message}</ErrorMessage>
           </div>
-          <div className="container">
-            <label htmlFor="password" className="text">
+          <div className='container'>
+            <label htmlFor='password' className='text'>
               Пароль
             </label>
             <Input
@@ -72,16 +76,16 @@ export default function LoginModal({
                 minLength: { value: 8, message: "Минимум 8 знаков" },
                 maxLength: { value: 30, message: "Максимум 30 знаков" },
               })}
-              id="password"
-              autoComplete="off"
+              id='password'
+              autoComplete='off'
             />
             <ErrorMessage>{errors.password?.message}</ErrorMessage>
           </div>
-          <Submit type="submit">Войти</Submit>
-          <div className="container center">
-            <button className="container__btn">Восстановить пароль</button>
+          <Submit type='submit'>Войти</Submit>
+          <div className='container center'>
+            <button className='container__btn'>Восстановить пароль</button>
             <button
-              className="container__btn"
+              className='container__btn'
               onClick={() => {
                 reset({ email: "", password: "" });
                 setActive(false);

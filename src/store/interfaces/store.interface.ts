@@ -1,3 +1,4 @@
+import { IAuthState } from "./auth.interface";
 import { ICompaniesState } from "./companies.interface";
 import { IFiltersState } from "./filters.interface";
 import { IModalsState } from "./modals.interface";
@@ -10,4 +11,5 @@ export interface IStore {
   productTypes: IProductTypesState;
   filters: IFiltersState;
   paymentMethods: IPaymentMethodsState;
+  auth: IAuthState;
 }

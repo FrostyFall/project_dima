@@ -12,10 +12,7 @@ export default function CompanyPreview({ company }: Props) {
 
   return (
     <Figure onClick={() => navigate(`/companies/${company.id}`)}>
-      <img
-        src='https://s5o.ru/storage/simple/cyber/edt/bb/f9/38/f5/cyberef95b3ecf51.jpg'
-        alt='Company'
-      />
+      <img src={company.imgUrl} alt='Company' />
       <Figcaption>
         <h4 className='company__name'>{company.name}</h4>
         <InfoWrapper>

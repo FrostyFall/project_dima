@@ -28,11 +28,7 @@ export default function ProductModal({ product }: Props) {
         >
           X
         </button>
-        <img
-          className='img'
-          src='https://i1.sndcdn.com/artworks-000635780677-yhmbpw-t500x500.jpg'
-          alt='Product'
-        />
+        <img className='img' src={product?.imgUrl} alt='Product' />
         <Wrapper>
           <ContentWrapper>
             <div className='container'>
@@ -40,7 +36,9 @@ export default function ProductModal({ product }: Props) {
               <p className='product__price'>{product?.price}</p>
             </div>
             <p className='product__weight'>{product?.weight}</p>
-            <p className='product__ingredients'>{product?.ingredientsRange}</p>
+            <p className='product__ingredients'>
+              {product?.ingredientsRange.join(", ")}
+            </p>
           </ContentWrapper>
           <ButtonsWrapper>
             <button className='btn minus' onClick={() => decrement()}>
@@ -96,8 +94,11 @@ const ModalContent = styled.div`
     }
   }
   .img {
+    height: auto;
+    max-height: 250px;
     width: 100%;
-    height: 250px;
+    // height: 250px;
+    object-fit: cover;
     border-radius: 25px 25px 0 0;
   }
 `;
@@ -129,6 +130,10 @@ const Wrapper = styled.div`
   .product__ingredients {
     font-size: 16px;
     color: gray;
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
   }
 `;
 const ContentWrapper = styled.div``;

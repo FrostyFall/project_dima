@@ -21,4 +21,5 @@ export interface ICompany {
   }[];
   location: string;
   paymentMethods: IPaymentMethod[];
+  imgUrl: string;
 }
